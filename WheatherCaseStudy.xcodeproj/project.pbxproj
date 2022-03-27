@@ -13,7 +13,6 @@
 		DB14DCDD27EDB566002A2E35 /* Weather5day.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB14DCDC27EDB566002A2E35 /* Weather5day.swift */; };
 		DB47688427EC4A9D00584DEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47688327EC4A9D00584DEA /* AppDelegate.swift */; };
 		DB47688627EC4A9D00584DEA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47688527EC4A9D00584DEA /* SceneDelegate.swift */; };
-		DB47688827EC4A9D00584DEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB47688727EC4A9D00584DEA /* ViewController.swift */; };
 		DB47688B27EC4A9D00584DEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB47688927EC4A9D00584DEA /* Main.storyboard */; };
 		DB47688D27EC4A9F00584DEA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB47688C27EC4A9F00584DEA /* Assets.xcassets */; };
 		DB47689027EC4A9F00584DEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB47688E27EC4A9F00584DEA /* LaunchScreen.storyboard */; };
@@ -24,6 +23,9 @@
 		DB4768AB27ECA33F00584DEA /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4768AA27ECA33F00584DEA /* WeatherViewController.swift */; };
 		DB4768AE27ECA4F700584DEA /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4768AD27ECA4F700584DEA /* Helper.swift */; };
 		DB4768B027ECB88700584DEA /* WeatherViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4768AF27ECB88700584DEA /* WeatherViewCell.swift */; };
+		DB98E6B627F0DE86006A9BD3 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB98E6B527F0DE86006A9BD3 /* Date+Extension.swift */; };
+		DBDE479E27F092230082EF68 /* WeatherTableCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDE479D27F092230082EF68 /* WeatherTableCellModel.swift */; };
+		DBDE47A027F0AC2D0082EF68 /* WeatherTableHeaderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDE479F27F0AC2D0082EF68 /* WeatherTableHeaderModel.swift */; };
 		DBEBCE4F27ED055D006FE806 /* WeatherTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBEBCE4E27ED055D006FE806 /* WeatherTableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +38,6 @@
 		DB47688027EC4A9D00584DEA /* WheatherCaseStudy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheatherCaseStudy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB47688327EC4A9D00584DEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB47688527EC4A9D00584DEA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DB47688727EC4A9D00584DEA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DB47688A27EC4A9D00584DEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB47688C27EC4A9F00584DEA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB47688F27EC4A9F00584DEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +49,9 @@
 		DB4768AA27ECA33F00584DEA /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		DB4768AD27ECA4F700584DEA /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		DB4768AF27ECB88700584DEA /* WeatherViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewCell.swift; sourceTree = "<group>"; };
+		DB98E6B527F0DE86006A9BD3 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		DBDE479D27F092230082EF68 /* WeatherTableCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableCellModel.swift; sourceTree = "<group>"; };
+		DBDE479F27F0AC2D0082EF68 /* WeatherTableHeaderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableHeaderModel.swift; sourceTree = "<group>"; };
 		DBEBCE4E27ED055D006FE806 /* WeatherTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableViewHeader.swift; sourceTree = "<group>"; };
 		FBA9496B63CAFE77FD88A073 /* Pods-WheatherCaseStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WheatherCaseStudy.debug.xcconfig"; path = "Target Support Files/Pods-WheatherCaseStudy/Pods-WheatherCaseStudy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -100,7 +104,6 @@
 				DB47689927EC4AC000584DEA /* View */,
 				DB47689827EC4AB600584DEA /* Model */,
 				DB47689727EC4AAD00584DEA /* Sources */,
-				DB47688727EC4A9D00584DEA /* ViewController.swift */,
 				DB47688927EC4A9D00584DEA /* Main.storyboard */,
 				DB47688C27EC4A9F00584DEA /* Assets.xcassets */,
 				DB47688E27EC4A9F00584DEA /* LaunchScreen.storyboard */,
@@ -122,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				DB14DCDC27EDB566002A2E35 /* Weather5day.swift */,
+				DBDE479D27F092230082EF68 /* WeatherTableCellModel.swift */,
+				DBDE479F27F0AC2D0082EF68 /* WeatherTableHeaderModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 			children = (
 				DB4768AD27ECA4F700584DEA /* Helper.swift */,
 				DB14DCDA27EDB274002A2E35 /* Extensions.swift */,
+				DB98E6B527F0DE86006A9BD3 /* Date+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -185,7 +191,6 @@
 				FBA9496B63CAFE77FD88A073 /* Pods-WheatherCaseStudy.debug.xcconfig */,
 				9A0D3BE0FCFF8A1E56F08D41 /* Pods-WheatherCaseStudy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -305,12 +310,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBDE47A027F0AC2D0082EF68 /* WeatherTableHeaderModel.swift in Sources */,
 				DB4768A527EC55B600584DEA /* LocationViewController.swift in Sources */,
 				DB4768B027ECB88700584DEA /* WeatherViewCell.swift in Sources */,
 				DB4768AB27ECA33F00584DEA /* WeatherViewController.swift in Sources */,
+				DBDE479E27F092230082EF68 /* WeatherTableCellModel.swift in Sources */,
+				DB98E6B627F0DE86006A9BD3 /* Date+Extension.swift in Sources */,
 				DB4768A027EC514A00584DEA /* WeatherService.swift in Sources */,
 				DB47689D27EC4B4F00584DEA /* NetworkManager.swift in Sources */,
-				DB47688827EC4A9D00584DEA /* ViewController.swift in Sources */,
 				DB47688427EC4A9D00584DEA /* AppDelegate.swift in Sources */,
 				DB14DCDB27EDB274002A2E35 /* Extensions.swift in Sources */,
 				DB4768AE27ECA4F700584DEA /* Helper.swift in Sources */,
@@ -470,6 +477,9 @@
 				DEVELOPMENT_TEAM = J2USCCWW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WheatherCaseStudy/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = NSLocationAlwaysAndWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = NSLocationWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -499,6 +509,9 @@
 				DEVELOPMENT_TEAM = J2USCCWW7B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WheatherCaseStudy/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = NSLocationAlwaysAndWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = NSLocationWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

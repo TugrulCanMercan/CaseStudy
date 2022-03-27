@@ -25,7 +25,7 @@ extension Double{
 
 
 
-extension String {
+extension Date {
    func getFormattedDate() -> String {
 
        let dateFormatterGet = DateFormatter()
@@ -35,8 +35,8 @@ extension String {
        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
        
 
-       let date: Date? = dateFormatterGet.date(from: self)
-       let result = dateFormatter.string(from: date!)
+//       let date: Date? = dateFormatterGet.date(from: self)
+       let result = dateFormatter.string(from: self)
        return result
     }
 }

@@ -39,10 +39,15 @@
                                     <constraint firstItem="5HX-qG-AM5" firstAttribute="height" secondItem="r9u-NE-XGF" secondAttribute="height" multiplier="2" id="Pw0-gD-Oqc"/>
                                 </constraints>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="cbQ-rG-02k">
+                                <rect key="frame" x="197" y="227" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="cbQ-rG-02k" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Dnd-h1-cij"/>
+                            <constraint firstItem="cbQ-rG-02k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="139" id="Ey6-nX-5xW"/>
                             <constraint firstItem="ywE-WD-dxw" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="WXe-Ek-O5i"/>
                             <constraint firstItem="ywE-WD-dxw" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.6" id="hbT-Fz-5TW"/>
                             <constraint firstItem="ywE-WD-dxw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="tv0-Gg-rSz"/>
@@ -51,6 +56,7 @@
                     <navigationItem key="navigationItem" id="dBk-CR-SGS"/>
                     <connections>
                         <outlet property="ApiKey" destination="5HX-qG-AM5" id="DEk-vV-lKl"/>
+                        <outlet property="LoadingView" destination="cbQ-rG-02k" id="bW9-zv-4rF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -117,6 +123,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="1ne-Dy-5Dt" firstAttribute="centerY" secondItem="dsN-gb-6bL" secondAttribute="centerY" id="0y0-9q-DZy"/>
+                                                <constraint firstItem="bgg-UA-Zdk" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1ne-Dy-5Dt" secondAttribute="trailing" constant="1" id="8Vl-Dg-kEd"/>
                                                 <constraint firstItem="gAn-hN-Sr0" firstAttribute="leading" secondItem="dsN-gb-6bL" secondAttribute="leading" constant="20" id="F6F-kA-ll0"/>
                                                 <constraint firstAttribute="bottom" secondItem="gAn-hN-Sr0" secondAttribute="bottom" id="Fuw-9b-l7t"/>
                                                 <constraint firstAttribute="trailing" secondItem="bgg-UA-Zdk" secondAttribute="trailing" constant="20" id="TrG-Zw-sAu"/>

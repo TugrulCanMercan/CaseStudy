@@ -1,57 +1,53 @@
 import Foundation
 
-
-struct Weather5days: Codable {
-    
-    
-    let list: [List]
-    let city: City
-}
-
-// MARK: - City
-struct City: Codable {
-    
-    let name: String
-    
-    let country: String
-    let population, timezone, sunrise, sunset: Int
-}
+//enum CodingKeys: String, CodingKey {
+//        case  main, weather, wind, visibility
+//        case dtTxt = "dt_txt"
+//
+//    }
 
 
-
-// MARK: - List
-struct List: Codable {
+struct WeeklyWeatherForecast: Codable{
     
-    let main: MainClass
-    let weather: [Weather]
+    let currentWeather:CurrentWeather
+    let dailyWeather:[Weather]
     
-    let wind: Wind
-    let visibility: Int
-    
-    
-    let dtTxt: String
-    
-
-    enum CodingKeys: String, CodingKey {
-        case  main, weather, wind, visibility
-        case dtTxt = "dt_txt"
-        
+    enum CodingKeys : String, CodingKey{
+        case dailyWeather = "daily"
+        case currentWeather = "current"
     }
+   
+    
 }
 
-struct MainClass:Codable{
-    let temp:Double
-    let temp_min:Double
-    let temp_max:Double
-}
+struct CurrentWeather:Codable{
+    let temperature:Double
+    let weather:[WeatherInfo]
+    enum CodingKeys : String, CodingKey{
+        case temperature = "temp"
+        case weather
+    }
 
-struct Weather:Codable{
+}
+struct WeatherInfo:Codable{
     let main:String
     let description:String
     let icon:String
+    
+    
+}
+struct Weather:Codable{
+    let temperature:Temperature
+    let weatherInfo:[WeatherInfo]
+    
+    enum CodingKeys : String, CodingKey{
+        case temperature = "temp"
+        case weatherInfo = "weather"
+    }
 }
 
-struct Wind:Codable{
-    let speed:Double
+struct Temperature:Codable{
+    let day:Double
+    let min:Double
+    let max:Double
 }
-

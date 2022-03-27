@@ -22,7 +22,7 @@ class WeatherViewController: UIViewController,Storyboarded {
     
     
     
-    var locationVM:LocationViewModel?
+    weak var locationVM:LocationViewModel?
     
 
     override func viewDidLoad() {
@@ -53,38 +53,21 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell") as! WeatherViewCell
       
-        if let resultList = locationVM?.weatherList[indexPath.row]{
-        cell.DayLabel.text = resultList.dtTxt.getFormattedDate()
-            cell.MaxDegree.text = resultList.main.temp_max.convertTemp(from: .kelvin, to: .celsius)
-            cell.MinDegree.text = resultList.main.temp_min.convertTemp(from: .kelvin, to: .celsius)
-        
-       
-            cell.WeatherIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/wn/\(resultList.weather[0].icon)@2x.png"), placeholderImage: UIImage(systemName: "person"))
-            
-            
-            
+        if let data = locationVM?.weatherList[indexPath.row]{
+            cell.configurationCell(weatherCellModel: data)
         }
-        
-        
-        
-        
+  
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherTableViewHeader") as! WeatherTableViewHeader
         
-        if let vList = locationVM?.weatherList.first{
-            header.WeatherIcon.sd_setImage(with: URL(string: "http://openweathermap.org/img/wn/\( vList.weather[0].icon)@2x.png"), placeholderImage: UIImage(systemName: "person"))
-          
-           
+        if let data = locationVM?.weatherCurrentHeader{
+            header.headerConfigration(headerModel: data)
         }
         
-        header.CityName.text = locationVM?.cityName
-       
         
-        header.WeatherDegree.text = locationVM?.weatherList.first?.main.temp.convertTemp(from: .kelvin, to: .celsius)
-      
       
         
         

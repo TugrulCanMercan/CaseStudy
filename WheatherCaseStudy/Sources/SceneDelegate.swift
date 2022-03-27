@@ -17,8 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        self.scene(scene, openURLContexts: connectionOptions.urlContexts)
     }
-
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        if let url = URLContexts.first?.url{
+             print(url)
+             let urlStr = url.absoluteString //1
+             // Parse the custom URL as per your uses, this will change as per requirement
+             let component = urlStr.components(separatedBy: "=") // 2
+             if component.count > 1, let productId = component.last { // 3
+                 // 4
+             }
+        }
+    }
+    
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

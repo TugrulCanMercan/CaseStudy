@@ -35,48 +35,35 @@ class LocationViewModel:WeatherInfoProtocol{
     var Latitude:CLLocationDegrees?
     var cityName:String = ""
     
-    
-    
-    var weather:Weather5days?{
-        didSet{
-            guard let weather = weather else {
-                return
-            }
-            
-        }
-    }
-    var weatherIcon:UIImage?
-    
-    var weatherList:[List] = [] {
-        didSet{
-            delegate?.receiveWeather(weather: .reloading)
-
-        }
-    }
     var ApiKey:String = ""
 
-    init(){
-        let service = WeatherService()
-        service.getWeather()
+    var weatherWeeklyForecast:WeeklyWeatherForecast?{
+        didSet{
+            delegate?.receiveWeather(weather: .reloading)
+        }
+    }
+    var weatherList:[WeatherTableCellModel] = []{
+        didSet{
+            delegate?.receiveWeather(weather: .reloading)
+        }
     }
     
-    func filterWeatherList(weather:Weather5days?){
-        
-        var weatherListResult:[List] = []
-        if let listCount = weather?.list.count {
-            for item in 0..<listCount where item % 5 == 0 {
-                if let weatherİtem = weather?.list[item]{
-                    
-                    
-                    
-                    weatherListResult.append(weatherİtem)
-                    
-                }
-            }
+    var weatherCurrentHeader:WeatherTableHeaderModel?{
+        didSet{
+            delegate?.receiveWeather(weather: .reloading)
         }
-        self.weatherList = weatherListResult
-        
     }
+    
+    
+    let weatherService:WeatherService
+    
+    
+    
+    init(){
+        self.weatherService = WeatherService()
+    }
+    
+    
     
     
     func locationWheatherInfo(){
@@ -87,28 +74,62 @@ class LocationViewModel:WeatherInfoProtocol{
             print("enlem boylam gelmedi")
             return
         }
-        
         delegate?.receiveWeather(weather: .setLoading(true))
-
-        let endPoint = "https://api.openweathermap.org/data/2.5/forecast?lat=\(Latitude)&lon=\(Longitude)&appid=\(ApiKey)"
-        
-        NetworkManager.shared.get(url: endPoint) {[weak self] result in
-            
-            
-            switch result{
-            case .success(let data):
+        weatherService.getWeeklyForecast(latitude: Latitude, longitude: Longitude) {[weak self] weather in
+            switch weather{
+                
+            case .success(let weatherData):
                 
                 
-                self?.filterWeatherList(weather: data)
                 
-                
+                self?.dailyCellList(wether: weatherData)
+                self?.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
                 self?.delegate?.receiveWeather(weather: .setLoading(false))
-                
-            case .failure(let err):
-                print(err)
+            case .failure(let error):
+                print(error)
+                self?.delegate?.receiveWeather(weather: .setLoading(false))
             }
         }
-  
+        
+        
+    }
+    
+    func tableHeaderCurrentForecast(currentWeather:CurrentWeather){
+        var headerModel = WeatherTableHeaderModel(CityName: cityName, WeatherDegree: "", WeatherIconName: "")
+        
+        headerModel.WeatherDegree = currentWeather.temperature.convertTemp(from: .kelvin, to: .celsius)
+        if let iconName = currentWeather.weather.first?.icon {
+            headerModel.WeatherIconName = iconName
+        }
+
+        
+        
+        
+        self.weatherCurrentHeader = headerModel
+        
+    }
+    
+    
+    func dailyCellList(wether:WeeklyWeatherForecast){
+        
+        var cellModel = WeatherTableCellModel(MinDegreee: "", MaxDegreee: "", DayLabel: "", WeatherIconName: "nil")
+        
+        let WeatherCellModel =  zip(Date.oneWeek, wether.dailyWeather).map { (day,dailyWeather) -> WeatherTableCellModel in
+          
+            cellModel.MaxDegreee = dailyWeather.temperature.max.convertTemp(from: .kelvin, to: .celsius)
+            cellModel.MinDegreee = dailyWeather.temperature.min.convertTemp(from: .kelvin, to: .celsius)
+          
+            cellModel.DayLabel = day.getFormattedDate()
+            
+            
+            
+            if let weatherInformation = dailyWeather.weatherInfo.first {
+                cellModel.WeatherIconName = weatherInformation.icon
+            }
+            return cellModel
+        }
+
+        self.weatherList = WeatherCellModel
     }
 
 }

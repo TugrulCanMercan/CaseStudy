@@ -13,14 +13,17 @@ class LocationViewController: UIViewController{
        
     @IBOutlet weak var ApiKey: UITextField!
     
-
+    @IBOutlet weak var LoadingView: UIActivityIndicatorView!
+    
     var loactionVM = LocationViewModel()
     
-    
+    deinit{
+        print("kapandı")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        LoadingView.isHidden = true
         locationManager = CLLocationManager()
         locationManager.delegate = self
         
@@ -31,7 +34,10 @@ class LocationViewController: UIViewController{
         
        
     }
-
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        LoadingView.isHidden = true
+    }
    
     @IBAction func ApiKeyEnter(_ sender: Any) {
         guard ApiKey.text != nil else {
@@ -47,27 +53,11 @@ class LocationViewController: UIViewController{
         navigationController?.pushViewController(vc, animated: true)
         
     }
-    
-    
- 
-    
 }
 
 
-//extension LocationViewController:WeatherInfoDelegate{
-////    func receiveWeather(weather: output) {
-////        switch weather {
-////        case .setLoading(let bool):
-////            print(bool)
-////
-////
-////        case .reloading:
-////
-////        }
-////    }
-//
-//
-//}
+
+
 
 extension LocationViewController:CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
