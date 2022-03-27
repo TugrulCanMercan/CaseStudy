@@ -68,44 +68,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nWx-WO-Cdg">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="unk-hT-taI">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="x0q-qI-cFD">
-                                            <rect key="frame" x="186" y="74.5" width="42.5" height="141"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="hgjhh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hBC-9B-d6E">
-                                                    <rect key="frame" x="0.0" y="0.0" width="42.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tl8-AW-hw7">
-                                                    <rect key="frame" x="1" y="50.5" width="40" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="20j-k4-evb"/>
-                                                        <constraint firstAttribute="height" constant="40" id="Kst-Wt-eFA"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DDc-Ob-Qh8">
-                                                    <rect key="frame" x="0.5" y="120.5" width="41.5" height="20.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="x0q-qI-cFD" firstAttribute="centerX" secondItem="unk-hT-taI" secondAttribute="centerX" id="mz4-0r-IZO"/>
-                                        <constraint firstItem="x0q-qI-cFD" firstAttribute="centerY" secondItem="unk-hT-taI" secondAttribute="centerY" id="y5c-cd-nfq"/>
-                                    </constraints>
-                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="weatherCell" rowHeight="60" id="10C-eT-t0w" customClass="WeatherViewCell" customModule="WheatherCaseStudy" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="334.5" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="10C-eT-t0w" id="dsN-gb-6bL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
@@ -161,16 +126,14 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="DayLabel" destination="1ne-Dy-5Dt" id="Cv8-Xo-KfZ"/>
                                             <outlet property="DayText" destination="dsN-gb-6bL" id="WDX-YL-3Rj"/>
                                             <outlet property="MaxDegree" destination="4oK-xF-wng" id="LiT-0f-GCE"/>
                                             <outlet property="MinDegree" destination="TWk-Go-W36" id="mOz-xD-fmm"/>
+                                            <outlet property="WeatherIcon" destination="vnv-oW-VAC" id="lF3-9b-Yat"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="pgG-kX-3W5" id="jLF-eS-aZA"/>
-                                    <outlet property="delegate" destination="pgG-kX-3W5" id="xnI-SY-tVz"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LZ5-om-lyb"/>
@@ -184,9 +147,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="3ND-nw-ugE"/>
                     <connections>
-                        <outlet property="CityLabel" destination="hBC-9B-d6E" id="n5C-I2-gZy"/>
-                        <outlet property="WeatherDegree" destination="DDc-Ob-Qh8" id="R0a-XB-PrP"/>
-                        <outlet property="WeatherIcon" destination="Tl8-AW-hw7" id="1xI-cs-KJ6"/>
                         <outlet property="WeatherTableView" destination="nWx-WO-Cdg" id="gbE-y4-CUZ"/>
                     </connections>
                 </viewController>

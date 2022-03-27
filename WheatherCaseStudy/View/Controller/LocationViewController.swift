@@ -23,7 +23,7 @@ class LocationViewController: UIViewController{
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
-        loactionVM.delegate = self
+        
         
         
 
@@ -39,7 +39,8 @@ class LocationViewController: UIViewController{
             return
         }
         
-        
+        loactionVM.ApiKey = ApiKey.text!
+        loactionVM.locationWheatherInfo()
         let vc = WeatherViewController.instantiate()
         vc.locationVM = loactionVM
         
@@ -53,18 +54,20 @@ class LocationViewController: UIViewController{
 }
 
 
-extension LocationViewController:WeatherInfoDelegate{
-    func receiveWeather(weather: output) {
-        switch weather {
-        case .setLoading(let bool):
-            print(bool)
-        case .weatherOutput(let weather):
-            print(weather)
-        }
-    }
-    
-    
-}
+//extension LocationViewController:WeatherInfoDelegate{
+////    func receiveWeather(weather: output) {
+////        switch weather {
+////        case .setLoading(let bool):
+////            print(bool)
+////
+////
+////        case .reloading:
+////
+////        }
+////    }
+//
+//
+//}
 
 extension LocationViewController:CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -73,7 +76,16 @@ extension LocationViewController:CLLocationManagerDelegate{
         switch manager.authorizationStatus {
         case .authorizedAlways , .authorizedWhenInUse:
             //düzelt
-            var currentLoc:CLLocation = locationManager.location!
+            let currentLoc:CLLocation = locationManager.location!
+            
+            let geoCoder = CLGeocoder()
+            geoCoder.reverseGeocodeLocation(currentLoc, completionHandler: { (placemarks, _) -> Void in
+
+                placemarks?.forEach { (placemark) in
+
+                    if let city = placemark.locality { self.loactionVM.cityName = city } // Prints "New York"
+                }
+            })
             loactionVM.Latitude = currentLoc.coordinate.latitude
             loactionVM.Longitude = currentLoc.coordinate.longitude
         case .notDetermined , .denied , .restricted:
