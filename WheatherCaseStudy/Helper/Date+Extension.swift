@@ -20,7 +20,10 @@ extension Date{
         return days
     }
     
-    
+    ///
+    ///Haftanın günlerini getirir.
+    ///
+    ///
     func currentWeeklyDays()->[Self]{
         let calendar = Calendar.current
         let today = calendar.startOfDay(for: Date())
@@ -30,4 +33,21 @@ extension Date{
             .filter { !calendar.isDateInWeekend($0) }
         return days
     }
+    
+    
+    func getFormattedDate() -> String {
+
+        
+        
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        
+
+ //       let date: Date? = dateFormatterGet.date(from: self)
+        let result = dateFormatter.string(from: self)
+        return result
+     }
 }

@@ -12,10 +12,10 @@ class WeatherViewController: UIViewController,Storyboarded {
     
     
     
-    @IBOutlet weak var WeatherTableView: UITableView!{
+    @IBOutlet weak var weatherTableView: UITableView!{
         didSet{
-            WeatherTableView.delegate = self
-            WeatherTableView.dataSource = self
+            weatherTableView.delegate = self
+            weatherTableView.dataSource = self
             
         }
     }
@@ -23,59 +23,87 @@ class WeatherViewController: UIViewController,Storyboarded {
     
     
     weak var locationVM:LocationViewModel?
-    
-
+    var cancellable = DisposeBag()
+    var weatherCount = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationVM?.delegate = self
         
-        WeatherTableView.sectionHeaderHeight = UITableView.automaticDimension
-        WeatherTableView.estimatedSectionHeaderHeight = 44
-        WeatherTableView.register(UINib(nibName: "WeatherTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherTableViewHeader")
-   
+        weatherTableView.sectionHeaderHeight = UITableView.automaticDimension
+        weatherTableView.estimatedSectionHeaderHeight = 44
+        weatherTableView.register(UINib(nibName: "WeatherTableViewHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "WeatherTableViewHeader")
+        listeningViewModel()
+        
     }
-
+    
+    
+    private func listeningViewModel(){
+        locationVM?.weatherCellListPublisher.bind(listener: {[weak self] weatherTableCellModel in
+            
+            guard let self = self else {return}
+            self.weatherCount = weatherTableCellModel.count
+            self.weatherTableView.reloadData()
+        })
+        .disposed(by: cancellable)
+        locationVM?.weatherCurrentViewHeaderPublisher.bind(listener: { [weak self] weatherTableHeaderModel in
+            self?.weatherTableView.reloadData()
+        })
+        .disposed(by: cancellable)
+    }
     
     
     
-
+    
 }
 
 
 extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return locationVM?.weatherList.count ?? 0
+        
+       
+        return locationVM?.weatherCellListPublisher.value.count ?? 0
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "weatherCell") as! WeatherViewCell
-      
-        if let data = locationVM?.weatherList[indexPath.row]{
-            cell.configurationCell(weatherCellModel: data)
-        }
-  
+        
+        
+        locationVM?.weatherCellListPublisher.bind(listener: { weatherList in
+            cell.configurationCell(weatherCellModel: weatherList[indexPath.row])
+        }).disposed(by: cancellable)
+        
+        //        if let data = locationVM?.weatherList[indexPath.row]{
+        //            cell.configurationCell(weatherCellModel: data)
+        //        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherTableViewHeader") as! WeatherTableViewHeader
         
-        if let data = locationVM?.weatherCurrentHeader{
-            header.headerConfigration(headerModel: data)
-        }
+        locationVM?.weatherCurrentViewHeaderPublisher.bind(listener: { weatherTableHeaderModel in
+            
+            if let data = weatherTableHeaderModel{
+                header.headerConfigration(headerModel: data)
+            }
+            
+            
+        })
+        .disposed(by: cancellable)
         
-        
-      
-        
+        //        if let data = locationVM?.weatherCurrentHeader{
+        //            header.headerConfigration(headerModel: data)
+        //        }
         
         return header
     }
-
     
-   
+    
+    
     
     
     
@@ -83,14 +111,14 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
 
 extension WeatherViewController:WeatherInfoDelegate{
     func receiveWeather(weather: output) {
-       
+        
         switch weather {
         case .setLoading(let bool):
             print(bool)
-      
-         
+            
+            
         case .reloading:
-            self.WeatherTableView.reloadData()
+            self.weatherTableView.reloadData()
         }
     }
     

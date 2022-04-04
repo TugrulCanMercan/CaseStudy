@@ -25,76 +25,138 @@ protocol WeatherInfoDelegate:AnyObject{
 protocol WeatherInfoProtocol{
     var delegate:WeatherInfoDelegate? {get set}
 }
+/// düzelt
+enum LocationViewModelErrorList:String,Error{
+    
+    case keyHatasi = "Geçersiz api key"
+}
+
 
 
 class LocationViewModel:WeatherInfoProtocol{
+    
+    
+    ///Publisher Property
+
+    var setLoadingPublisher:Box<Bool> = Box<Bool>(false)
+    var weatherCellListPublisher:Box<[WeatherTableCellModel]> = Box<[WeatherTableCellModel]>([])
+    var weatherCurrentViewHeaderPublisher:Box<WeatherTableHeaderModel?> = Box<WeatherTableHeaderModel?>(nil)
+    
     
     weak var delegate: WeatherInfoDelegate?
     
     var Longitude:CLLocationDegrees?
     var Latitude:CLLocationDegrees?
     var cityName:String = ""
+    private var ApiKey:String = ""
     
-    var ApiKey:String = ""
+    // ESKİ
+  
 
-    var weatherWeeklyForecast:WeeklyWeatherForecast?{
-        didSet{
-            delegate?.receiveWeather(weather: .reloading)
+//    var weatherWeeklyForecast:WeeklyWeatherForecast?{
+//        didSet{
+//            delegate?.receiveWeather(weather: .reloading)
+//        }
+//    }
+//    var weatherList:[WeatherTableCellModel] = []{
+//        didSet{
+//            delegate?.receiveWeather(weather: .reloading)
+//        }
+//    }
+//    
+//    var weatherCurrentHeader:WeatherTableHeaderModel?{
+//        didSet{
+//            delegate?.receiveWeather(weather: .reloading)
+//        }
+//    }
+    //
+    
+    private(set) var weatherService:WeatherService
+    var locationService:LocationService?
+    
+    var disposebag = DisposeBag()
+    
+    init(weatherService:WeatherService){
+        self.weatherService = weatherService
+        self.locationService = LocationService()
+        self.observerLocationService()
+    }
+    
+    
+    func observerLocationService(){
+        locationService?.publisher.bind(listener: {[weak self] locationResult in
+            guard let self = self else {return}
+            self.Longitude = locationResult?.longitude
+            self.Latitude = locationResult?.latitude
+            self.cityName = locationResult?.city ?? "Şehir ismi gelmedi"
+            
+        })
+        .disposed(by: disposebag)
+    }
+    
+    
+    
+    
+    
+    
+    func apiKeyAccessControll(ApiKey:String)->(Bool,Error?){
+        
+        
+        let ApikeyCount = "8ddadecc7ae4f56fee73b2b405a63659".count
+        
+    
+        if ApiKey.count == ApikeyCount {
+            self.ApiKey = ApiKey
+            return (true,nil)
+        }else{
+            print("geçersiz api key")
+            return (false,LocationViewModelErrorList.keyHatasi)
         }
     }
-    var weatherList:[WeatherTableCellModel] = []{
-        didSet{
-            delegate?.receiveWeather(weather: .reloading)
-        }
-    }
-    
-    var weatherCurrentHeader:WeatherTableHeaderModel?{
-        didSet{
-            delegate?.receiveWeather(weather: .reloading)
-        }
-    }
-    
-    
-    let weatherService:WeatherService
-    
-    
-    
-    init(){
-        self.weatherService = WeatherService()
-    }
-    
-    
     
     
     func locationWheatherInfo(){
         
         
         
-        guard let Longitude = Longitude, let Latitude = Latitude else {
+        guard let longitude = Longitude, let latitude = Latitude else {
             print("enlem boylam gelmedi")
             return
         }
-        delegate?.receiveWeather(weather: .setLoading(true))
-        weatherService.getWeeklyForecast(latitude: Latitude, longitude: Longitude) {[weak self] weather in
+        //DELEGATE
+        self.setLoadingPublisher.value = true
+//        delegate?.receiveWeather(weather: .setLoading(true))
+        weatherService.getWeeklyForecast(latitude: latitude, longitude: longitude,ApiKey: ApiKey) {[weak self] weather in
+            
+            guard let self = self else {return}
             switch weather{
                 
             case .success(let weatherData):
                 
                 
                 
-                self?.dailyCellList(wether: weatherData)
-                self?.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
-                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                self.dailyCellList(wether: weatherData)
+                self.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
+                //DELEGATE
+//                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                self.setLoadingPublisher.value = false
+                
             case .failure(let error):
                 print(error)
-                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                //DELEGATE
+//                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                self.setLoadingPublisher.value = false
             }
         }
         
         
     }
     
-    func tableHeaderCurrentForecast(currentWeather:CurrentWeather){
+    
+    
+    
+    
+    private func tableHeaderCurrentForecast(currentWeather:CurrentWeather){
         var headerModel = WeatherTableHeaderModel(CityName: cityName, WeatherDegree: "", WeatherIconName: "")
         
         headerModel.WeatherDegree = currentWeather.temperature.convertTemp(from: .kelvin, to: .celsius)
@@ -104,13 +166,13 @@ class LocationViewModel:WeatherInfoProtocol{
 
         
         
-        
-        self.weatherCurrentHeader = headerModel
+        self.weatherCurrentViewHeaderPublisher.value = headerModel
+//        self.weatherCurrentHeader = headerModel
         
     }
     
     
-    func dailyCellList(wether:WeeklyWeatherForecast){
+    private func dailyCellList(wether:WeeklyWeatherForecast){
         
         var cellModel = WeatherTableCellModel(MinDegreee: "", MaxDegreee: "", DayLabel: "", WeatherIconName: "nil")
         
@@ -129,7 +191,8 @@ class LocationViewModel:WeatherInfoProtocol{
             return cellModel
         }
 
-        self.weatherList = WeatherCellModel
+        self.weatherCellListPublisher.value = WeatherCellModel
+//        self.weatherList = WeatherCellModel
     }
 
 }

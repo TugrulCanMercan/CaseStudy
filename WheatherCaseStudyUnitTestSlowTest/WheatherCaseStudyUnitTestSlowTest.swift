@@ -6,6 +6,9 @@
 //
 
 import XCTest
+@testable import WheatherCaseStudy
+import CoreLocation
+
 
 class WheatherCaseStudyUnitTestSlowTest: XCTestCase {
 
@@ -17,19 +20,42 @@ class WheatherCaseStudyUnitTestSlowTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
+    func test_LocationVM_Service_WeatherListCellLoad_ShouldBeLoadList() throws {
+        
+        //given
+        let weatherService = WeatherService()
+        let vm = WeatherForeCastViewModel(weatherService: weatherService)
+        let mockLatitude:CLLocationDegrees = 20
+        let mockLongitude:CLLocationDegrees = 20
+        let ApiKey:String = "8ddadecc7ae4f56fee73b2b405a63659"
+        let promise = expectation(description: "Data geldi")
+        var weatherList:WeeklyWeatherForecast?
+        
+        //when
+        
+        
+        
+        
+        
+        
+        
+        vm.weatherService.getWeeklyForecast(latitude: mockLatitude, longitude: mockLongitude, ApiKey: ApiKey) { resultWeather in
+            //then
+            switch resultWeather{
+                
+            case .success(let weatherForecastList):
+                print(weatherForecastList)
+                weatherList = weatherForecastList
+                promise.fulfill()
+                
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
         }
+        wait(for: [promise], timeout: 5)
+        XCTAssertNotNil(weatherList)
     }
 
+
+    
 }

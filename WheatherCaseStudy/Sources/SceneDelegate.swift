@@ -20,12 +20,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.scene(scene, openURLContexts: connectionOptions.urlContexts)
     }
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        
+   
         if let url = URLContexts.first?.url{
              print(url)
              let urlStr = url.absoluteString //1
              // Parse the custom URL as per your uses, this will change as per requirement
              let component = urlStr.components(separatedBy: "=") // 2
-             if component.count > 1, let productId = component.last { // 3
+             if component.count > 1, let apiKey = component.last { // 3
+                 if apiKey == "8ddadecc7ae4f56fee73b2b405a63659"{
+                     
+                     let weatherViewController = WeatherViewController.instantiate()
+                     let vm = LocationViewModel(weatherService: WeatherService())
+                     vm.apiKeyAccessControll(ApiKey: apiKey)
+                     vm.locationService?.getCurrentLocationAndCity()
+                     vm.locationWheatherInfo()
+                     
+                     weatherViewController.locationVM = vm
+                     
+                     
+                     self.window?.rootViewController = UINavigationController(rootViewController: weatherViewController)
+                     window?.makeKeyAndVisible()
+                 }
+                 else{
+                     print("yanlış key")
+                 }
+                 
+                
                  // 4
              }
         }

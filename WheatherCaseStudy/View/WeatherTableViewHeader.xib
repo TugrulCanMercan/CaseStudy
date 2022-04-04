@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -45,11 +45,11 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Ef0-53-fhY" firstAttribute="leading" secondItem="GP6-u7-utA" secondAttribute="leading" constant="87" id="2w2-Ng-taF"/>
+                <constraint firstItem="GP6-u7-utA" firstAttribute="bottom" secondItem="Ef0-53-fhY" secondAttribute="bottom" constant="22" id="FAv-l4-gfd"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="top" secondItem="GP6-u7-utA" secondAttribute="top" id="NFa-fw-AmL"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="bottom" secondItem="GP6-u7-utA" secondAttribute="bottom" id="WOt-VD-6zs"/>
                 <constraint firstItem="GP6-u7-utA" firstAttribute="trailing" secondItem="z04-Dn-sFS" secondAttribute="trailing" id="WTa-lX-6aM"/>
                 <constraint firstItem="GP6-u7-utA" firstAttribute="trailing" secondItem="Ef0-53-fhY" secondAttribute="trailing" constant="87" id="aH7-M0-X11"/>
-                <constraint firstItem="GP6-u7-utA" firstAttribute="bottom" secondItem="Ef0-53-fhY" secondAttribute="bottom" constant="22" id="aqG-ez-EAx"/>
                 <constraint firstItem="Ef0-53-fhY" firstAttribute="top" secondItem="GP6-u7-utA" secondAttribute="top" constant="22" id="cHf-CG-rux"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="leading" secondItem="GP6-u7-utA" secondAttribute="leading" id="duf-cg-bcm"/>
             </constraints>

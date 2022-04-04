@@ -6,30 +6,87 @@
 //
 
 import XCTest
+@testable import WheatherCaseStudy
 
 class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
+    
+    var VM : WeatherForeCastViewModel?
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        self.VM = WeatherForeCastViewModel(weatherService: WeatherService())
     }
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        VM = nil
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+  
+    
+    func test_LocationVM_WeatherService_ShouldBeInit(){
+        
+        guard let VM = VM else {
+            XCTFail()
+            return
         }
+        XCTAssertNotNil(VM)
     }
+    func test_LocationVM_WeatherServiceInjection_ShouldBeInit(){
+        let weatherService = WeatherService()
+        
+        
+        let vm = WeatherForeCastViewModel(weatherService: weatherService)
+        
+        let mirror = Mirror(reflecting: vm)
+        
+        XCTAssertIdentical(weatherService, mirror.firstChild(named: "weatherService"))
+    }
+    
+    func test_LocationVM_ApiKey_ShouldBeValid(){
+        
+        
+        let GivenKey = "8ddadecc7ae4f56fee73b2b405a63659"
+        
+        guard let VM = VM else {
+            XCTFail()
+            return
+        }
+
+        
+        let access = VM.apiKeyAccessControll(ApiKey: GivenKey)
+        
+        
+        XCTAssert(access.0 == true)
+        XCTAssertTrue(access.0)
+        
+        
+    }
+    
+    
+    func test_LocationVM_ApiKey_ShouldBeInValid(){
+        
+        //sadece sayı kontrolü
+        let GivenKey = ""
+        
+        guard let VM = VM else {
+            XCTFail()
+            return
+        }
+
+        
+        let access = VM.apiKeyAccessControll(ApiKey: GivenKey)
+        
+        
+        XCTAssert(access.0 == false)
+        
+        guard let vmErrorList = access.1 as? LocationViewModelErrorList else {
+            
+            return XCTFail()
+        }
+
+        XCTAssert(vmErrorList.rawValue == "Geçersiz api key")
+        
+        
+    }
+    
 
 }
