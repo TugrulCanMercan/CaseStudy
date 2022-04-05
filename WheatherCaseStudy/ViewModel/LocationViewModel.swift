@@ -10,21 +10,7 @@ import CoreLocation
 import UIKit
 
 
-enum output{
-    case setLoading(Bool)
-    case reloading
-    //    case weatherOutput(weather:Weather5days)
-    //    case weatherFiveDays(weather: [List])
-}
 
-
-protocol WeatherInfoDelegate:AnyObject{
-    func receiveWeather(weather: output)
-}
-
-protocol WeatherInfoProtocol{
-    var delegate:WeatherInfoDelegate? {get set}
-}
 /// düzelt
 enum LocationViewModelErrorList:String,Error{
     
@@ -33,7 +19,7 @@ enum LocationViewModelErrorList:String,Error{
 
 
 
-class LocationViewModel:WeatherInfoProtocol{
+class LocationViewModel{
     
     
     ///Publisher Property
@@ -43,48 +29,27 @@ class LocationViewModel:WeatherInfoProtocol{
     var weatherCurrentViewHeaderPublisher:Box<WeatherTableHeaderModel?> = Box<WeatherTableHeaderModel?>(nil)
     
     
-    weak var delegate: WeatherInfoDelegate?
+    
     
     var Longitude:CLLocationDegrees?
     var Latitude:CLLocationDegrees?
     var cityName:String = ""
     private var ApiKey:String = ""
-    
-    // ESKİ
-  
 
-//    var weatherWeeklyForecast:WeeklyWeatherForecast?{
-//        didSet{
-//            delegate?.receiveWeather(weather: .reloading)
-//        }
-//    }
-//    var weatherList:[WeatherTableCellModel] = []{
-//        didSet{
-//            delegate?.receiveWeather(weather: .reloading)
-//        }
-//    }
-//    
-//    var weatherCurrentHeader:WeatherTableHeaderModel?{
-//        didSet{
-//            delegate?.receiveWeather(weather: .reloading)
-//        }
-//    }
-    //
-    
     private(set) var weatherService:WeatherService
-    var locationService:LocationService?
+    var locationService:LocationService
     
     var disposebag = DisposeBag()
     
-    init(weatherService:WeatherService){
+    init(weatherService:WeatherService,locationService:LocationService){
         self.weatherService = weatherService
-        self.locationService = LocationService()
+        self.locationService = locationService
         self.observerLocationService()
     }
     
     
     func observerLocationService(){
-        locationService?.publisher.bind(listener: {[weak self] locationResult in
+        locationService.publisher.bind(listener: {[weak self] locationResult in
             guard let self = self else {return}
             self.Longitude = locationResult?.longitude
             self.Latitude = locationResult?.latitude
@@ -98,7 +63,7 @@ class LocationViewModel:WeatherInfoProtocol{
     
     
     
-    
+    @discardableResult
     func apiKeyAccessControll(ApiKey:String)->(Bool,Error?){
         
         
@@ -123,10 +88,10 @@ class LocationViewModel:WeatherInfoProtocol{
             print("enlem boylam gelmedi")
             return
         }
-        //DELEGATE
+        
         self.setLoadingPublisher.value = true
-//        delegate?.receiveWeather(weather: .setLoading(true))
-        weatherService.getWeeklyForecast(latitude: latitude, longitude: longitude,ApiKey: ApiKey) {[weak self] weather in
+
+        weatherService.getWeeklyForecast(latitude: latitude, longitude: longitude, ApiKey: ApiKey) {[weak self] weather in
             
             guard let self = self else {return}
             switch weather{
@@ -137,14 +102,14 @@ class LocationViewModel:WeatherInfoProtocol{
                 
                 self.dailyCellList(wether: weatherData)
                 self.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
-                //DELEGATE
-//                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                
+
                 self.setLoadingPublisher.value = false
                 
             case .failure(let error):
                 print(error)
-                //DELEGATE
-//                self?.delegate?.receiveWeather(weather: .setLoading(false))
+                
+
                 self.setLoadingPublisher.value = false
             }
         }
@@ -167,7 +132,7 @@ class LocationViewModel:WeatherInfoProtocol{
         
         
         self.weatherCurrentViewHeaderPublisher.value = headerModel
-//        self.weatherCurrentHeader = headerModel
+
         
     }
     
@@ -192,7 +157,7 @@ class LocationViewModel:WeatherInfoProtocol{
         }
 
         self.weatherCellListPublisher.value = WeatherCellModel
-//        self.weatherList = WeatherCellModel
+
     }
 
 }

@@ -22,6 +22,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         
         
+        for context in URLContexts {
+            print("url: \(context.url.absoluteURL)")
+            print("scheme: \(context.url.scheme)")
+            print("host: \(context.url.host)")
+            print("path: \(context.url.path)")
+            print("components: \(context.url.pathComponents)")
+          }
+        
    
         if let url = URLContexts.first?.url{
              print(url)
@@ -31,16 +39,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
              if component.count > 1, let apiKey = component.last { // 3
                  if apiKey == "8ddadecc7ae4f56fee73b2b405a63659"{
                      
-                     let weatherViewController = WeatherViewController.instantiate()
-                     let vm = LocationViewModel(weatherService: WeatherService())
-                     vm.apiKeyAccessControll(ApiKey: apiKey)
-                     vm.locationService?.getCurrentLocationAndCity()
-                     vm.locationWheatherInfo()
                      
-                     weatherViewController.locationVM = vm
+                     let weatherApp = WeatherViewController.instantiate()
                      
+                     let weatherService = WeatherService()
+                     let locationService = LocationService()
+                     let viewModel = LocationViewModel(weatherService: weatherService,locationService: locationService)
                      
-                     self.window?.rootViewController = UINavigationController(rootViewController: weatherViewController)
+                     weatherApp.locationVM = viewModel
+                     viewModel.locationWheatherInfo()
+
+                     let navController = UINavigationController(rootViewController: weatherApp)
+
+                     window?.rootViewController = navController
                      window?.makeKeyAndVisible()
                  }
                  else{
@@ -48,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  }
                  
                 
-                 // 4
+                 
              }
         }
     }

@@ -24,11 +24,11 @@ class WeatherViewController: UIViewController,Storyboarded {
     
     weak var locationVM:LocationViewModel?
     var cancellable = DisposeBag()
-    var weatherCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationVM?.delegate = self
+        
         
         weatherTableView.sectionHeaderHeight = UITableView.automaticDimension
         weatherTableView.estimatedSectionHeaderHeight = 44
@@ -42,7 +42,7 @@ class WeatherViewController: UIViewController,Storyboarded {
         locationVM?.weatherCellListPublisher.bind(listener: {[weak self] weatherTableCellModel in
             
             guard let self = self else {return}
-            self.weatherCount = weatherTableCellModel.count
+            
             self.weatherTableView.reloadData()
         })
         .disposed(by: cancellable)
@@ -74,11 +74,7 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
         locationVM?.weatherCellListPublisher.bind(listener: { weatherList in
             cell.configurationCell(weatherCellModel: weatherList[indexPath.row])
         }).disposed(by: cancellable)
-        
-        //        if let data = locationVM?.weatherList[indexPath.row]{
-        //            cell.configurationCell(weatherCellModel: data)
-        //        }
-        
+
         return cell
     }
     
@@ -95,10 +91,7 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
         })
         .disposed(by: cancellable)
         
-        //        if let data = locationVM?.weatherCurrentHeader{
-        //            header.headerConfigration(headerModel: data)
-        //        }
-        
+
         return header
     }
     
@@ -109,18 +102,18 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
     
 }
 
-extension WeatherViewController:WeatherInfoDelegate{
-    func receiveWeather(weather: output) {
-        
-        switch weather {
-        case .setLoading(let bool):
-            print(bool)
-            
-            
-        case .reloading:
-            self.weatherTableView.reloadData()
-        }
-    }
-    
-    
-}
+//extension WeatherViewController:WeatherInfoDelegate{
+//    func receiveWeather(weather: output) {
+//        
+//        switch weather {
+//        case .setLoading(let bool):
+//            print(bool)
+//            
+//            
+//        case .reloading:
+//            self.weatherTableView.reloadData()
+//        }
+//    }
+//    
+//    
+//}
