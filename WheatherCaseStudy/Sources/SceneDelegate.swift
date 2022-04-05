@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                      
                      
                      VKFSession.shared.store(with: .weatherApiKey, value: apiKey)
-                     
+                     NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: apiKey)
                      
                  }
                  else{

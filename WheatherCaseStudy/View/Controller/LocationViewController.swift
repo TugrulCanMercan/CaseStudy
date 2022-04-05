@@ -25,9 +25,22 @@ class LocationViewController: UIViewController,Storyboarded{
         super.viewDidLoad()
         
         
-       
+        NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
+
 
     }
+    @objc func methodOfReceivedNotification(notification: Notification){
+        if let key = notification.object as? String{
+           
+            ApiKey.text = key
+            buttonAction(key: key)
+        }else{
+            print("gelmedi")
+        }
+        
+    }
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
       
