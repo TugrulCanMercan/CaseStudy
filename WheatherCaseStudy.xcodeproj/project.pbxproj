@@ -33,6 +33,7 @@
 		E46EE21427FAD79C00C4FDBE /* Boxing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21327FAD79C00C4FDBE /* Boxing.swift */; };
 		E46EE21627FADCB700C4FDBE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21527FADCB700C4FDBE /* LocationManager.swift */; };
 		E46EE21A27FAE96100C4FDBE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21927FAE96100C4FDBE /* LocationService.swift */; };
+		E4D59D9227FC75D400C4F0FD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D59D9127FC75D400C4F0FD /* SessionStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		E46EE21327FAD79C00C4FDBE /* Boxing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boxing.swift; sourceTree = "<group>"; };
 		E46EE21527FADCB700C4FDBE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E46EE21927FAE96100C4FDBE /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E4D59D9127FC75D400C4F0FD /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		FBA9496B63CAFE77FD88A073 /* Pods-WheatherCaseStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WheatherCaseStudy.debug.xcconfig"; path = "Target Support Files/Pods-WheatherCaseStudy/Pods-WheatherCaseStudy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -217,6 +219,7 @@
 				DB98E6B527F0DE86006A9BD3 /* Date+Extension.swift */,
 				E410533527F44F28007D0375 /* Extension-Mirror.swift */,
 				E46EE21327FAD79C00C4FDBE /* Boxing.swift */,
+				E4D59D9127FC75D400C4F0FD /* SessionStore.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				DB4768AB27ECA33F00584DEA /* WeatherViewController.swift in Sources */,
 				DBDE479E27F092230082EF68 /* WeatherTableCellModel.swift in Sources */,
 				E46EE21427FAD79C00C4FDBE /* Boxing.swift in Sources */,
+				E4D59D9227FC75D400C4F0FD /* SessionStore.swift in Sources */,
 				E46EE21A27FAE96100C4FDBE /* LocationService.swift in Sources */,
 				DB98E6B627F0DE86006A9BD3 /* Date+Extension.swift in Sources */,
 				DB4768A027EC514A00584DEA /* WeatherService.swift in Sources */,

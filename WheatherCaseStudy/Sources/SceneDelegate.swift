@@ -40,19 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  if apiKey == "8ddadecc7ae4f56fee73b2b405a63659"{
                      
                      
-                     let weatherApp = WeatherViewController.instantiate()
+                     VKFSession.shared.store(with: .weatherApiKey, value: apiKey)
                      
-                     let weatherService = WeatherService()
-                     let locationService = LocationService()
-                     let viewModel = LocationViewModel(weatherService: weatherService,locationService: locationService)
                      
-                     weatherApp.locationVM = viewModel
-                     viewModel.locationWheatherInfo()
-
-                     let navController = UINavigationController(rootViewController: weatherApp)
-
-                     window?.rootViewController = navController
-                     window?.makeKeyAndVisible()
                  }
                  else{
                      print("yanlış key")

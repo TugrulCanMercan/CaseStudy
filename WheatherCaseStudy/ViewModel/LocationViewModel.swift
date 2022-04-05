@@ -36,6 +36,9 @@ class LocationViewModel{
     var cityName:String = ""
     private var ApiKey:String = ""
 
+    var sessionPublisher:Box<String?> = Box<String?>(VKFSession.shared.retrieve(with: .weatherApiKey))
+    
+    
     private(set) var weatherService:WeatherService
     var locationService:LocationService
     
@@ -45,9 +48,16 @@ class LocationViewModel{
         self.weatherService = weatherService
         self.locationService = locationService
         self.observerLocationService()
+     
+        listerSession()
+       
     }
     
-    
+    func listerSession(){
+        sessionPublisher.bind { session in
+            print("session geldi \(String(describing: session))")
+         }.disposed(by: disposebag)
+    }
     func observerLocationService(){
         locationService.publisher.bind(listener: {[weak self] locationResult in
             guard let self = self else {return}

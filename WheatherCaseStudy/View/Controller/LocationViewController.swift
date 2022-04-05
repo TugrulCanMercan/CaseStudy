@@ -23,10 +23,14 @@ class LocationViewController: UIViewController,Storyboarded{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+       
 
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+      
         
     }
    
