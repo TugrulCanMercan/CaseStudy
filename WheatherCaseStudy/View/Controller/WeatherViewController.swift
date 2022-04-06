@@ -28,7 +28,7 @@ class WeatherViewController: UIViewController,Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        navigationItem.largeTitleDisplayMode = .never
         
         weatherTableView.sectionHeaderHeight = UITableView.automaticDimension
         weatherTableView.estimatedSectionHeaderHeight = 44
@@ -95,25 +95,15 @@ extension WeatherViewController:UITableViewDelegate,UITableViewDataSource{
         return header
     }
     
-    
-    
-    
-    
-    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: 0, y: 0)
+        
+        UIView.animate(withDuration: 0.5, delay: 0.3 * Double(indexPath.row)) {
+            cell.transform = CGAffineTransform(scaleX: 1, y: 1)
+        } completion: { _ in
+            
+        }
+
+    }
 }
 
-//extension WeatherViewController:WeatherInfoDelegate{
-//    func receiveWeather(weather: output) {
-//        
-//        switch weather {
-//        case .setLoading(let bool):
-//            print(bool)
-//            
-//            
-//        case .reloading:
-//            self.weatherTableView.reloadData()
-//        }
-//    }
-//    
-//    
-//}

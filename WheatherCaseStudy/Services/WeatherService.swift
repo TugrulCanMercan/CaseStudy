@@ -10,7 +10,13 @@ import CoreLocation
 import Combine
 
 
-class WeatherService{
+protocol WeatherServiceProtocol:AnyObject{
+    var weeklyForeCast:WeeklyWeatherForecast? {get set}
+    func getWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>)->Void)
+}
+
+
+class WeatherService:WeatherServiceProtocol{
     
     @Published var weeklyForeCast:WeeklyWeatherForecast?
     

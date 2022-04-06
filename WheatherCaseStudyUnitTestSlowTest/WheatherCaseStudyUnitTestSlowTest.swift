@@ -24,7 +24,8 @@ class WheatherCaseStudyUnitTestSlowTest: XCTestCase {
         
         //given
         let weatherService = WeatherService()
-        let vm = WeatherForeCastViewModel(weatherService: weatherService)
+        let locService = LocationService()
+        let vm = LocationViewModel(weatherService: weatherService, locationService: locService)
         let mockLatitude:CLLocationDegrees = 20
         let mockLongitude:CLLocationDegrees = 20
         let ApiKey:String = "8ddadecc7ae4f56fee73b2b405a63659"

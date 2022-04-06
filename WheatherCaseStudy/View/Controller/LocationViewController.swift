@@ -26,7 +26,15 @@ class LocationViewController: UIViewController,Storyboarded{
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.methodOfReceivedNotification(notification:)), name: Notification.Name("NotificationIdentifier"), object: nil)
-
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        title = "Weather App"
+      // Vakıfbank session store
+//        let stored:String? = VKFSession.shared.retrieve(with: .weatherApiKey)
+//        ApiKey.text = stored ?? ""
+        
+        
 
     }
     @objc func methodOfReceivedNotification(notification: Notification){
@@ -45,6 +53,7 @@ class LocationViewController: UIViewController,Storyboarded{
         super.viewDidAppear(animated)
       
         
+      
     }
    
     @IBAction func ApiKeyEnter(_ sender: Any) {

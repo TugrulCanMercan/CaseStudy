@@ -10,10 +10,10 @@ import XCTest
 
 class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
     
-    var VM : WeatherForeCastViewModel?
+    var VM : LocationViewModel?
 
     override func setUpWithError() throws {
-        self.VM = WeatherForeCastViewModel(weatherService: WeatherService())
+        self.VM = LocationViewModel(weatherService: WeatherService(),locationService: LocationService())
     }
 
     override func tearDownWithError() throws {
@@ -32,9 +32,9 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
     }
     func test_LocationVM_WeatherServiceInjection_ShouldBeInit(){
         let weatherService = WeatherService()
+        let locService = LocationService()
         
-        
-        let vm = WeatherForeCastViewModel(weatherService: weatherService)
+        let vm = LocationViewModel(weatherService: weatherService,locationService: locService)
         
         let mirror = Mirror(reflecting: vm)
         
@@ -88,5 +88,50 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         
     }
     
+    
+    func test_LocationVM_ApiKey_ShouldBeMockResponse__(){
+        
+        
+        guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
+        let data = try? Data(contentsOf: url) else {
+            print("bulunamadı")
+            return XCTFail()
+        }
+
+        
+        
+        
+        guard let weather = try? JSONDecoder().decode(WeeklyWeatherForecast.self, from: data) else {
+            return XCTFail()
+        }
+        
+        XCTAssertNotNil(weather)
+        
+        
+    }
+    
+    func test_LocationVM_ApiKey_LocationService(){
+        
+        
+        
+        
+        guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
+        let data = try? Data(contentsOf: url) else {
+            print("bulunamadı")
+            return XCTFail()
+        }
+
+        
+        
+        
+        guard let weather = try? JSONDecoder().decode(WeeklyWeatherForecast.self, from: data) else {
+            return XCTFail()
+        }
+        
+        XCTAssertNotNil(weather)
+        
+        
+    }
+
 
 }

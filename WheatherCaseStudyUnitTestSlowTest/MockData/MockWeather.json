@@ -1,0 +1,65 @@
+
+{
+    
+    "current":{
+        "temp":12.1,
+        "weather":[
+            {
+                "main":"Clouds",
+                "description":"kapalı",
+                "icon":"04d"
+            },
+            {
+                "main":"Clear",
+                "description":"açık",
+                "icon":"01d"
+            }
+        ]
+    },
+    "daily":[
+        
+     {
+        "temp":{
+            "day":12.1,
+            "min":12.2,
+            "max":12.3
+        },
+        "weather":[
+            {
+                "main":"fake",
+                "icon":"03d",
+                "description":"sahte"
+            },{
+                
+                "main":"fake",
+                "icon":"09d",
+                "description":"sahte"
+            }
+            
+        ]
+     },
+       {
+        "temp":{
+            "day":12.2,
+            "min":12.3,
+            "max":12.4
+        },
+        "weather":[
+            {
+                "main":"fake",
+                "icon":"03d",
+                "description":"sahte"
+            },{
+                
+                "main":"fake",
+                "icon":"09d",
+                "description":"sahte"
+            }
+            
+        ]
+     }
+        
+    ]
+  
+}
+

@@ -34,38 +34,6 @@
             endingLineNumber = "37"
             landmarkName = "application(_:open:options:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1906E9EC-A38C-4478-ACB0-3E9A931890AA - 99351a136c3fa852"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WheatherCaseStudy.AppDelegate.application(_: __C.UIApplication, open: Foundation.URL, options: Swift.Dictionary&lt;__C.UIApplicationOpenURLOptionsKey, Any&gt;) -&gt; Swift.Bool"
-                  moduleName = "WheatherCaseStudy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vb88396/Desktop/CaseStudy/CaseStudy/WheatherCaseStudy/Sources/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "273">
-               </Location>
-               <Location
-                  uuid = "1906E9EC-A38C-4478-ACB0-3E9A931890AA - 99351a136c3fa852"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WheatherCaseStudy.AppDelegate.application(_: __C.UIApplication, open: Foundation.URL, options: Swift.Dictionary&lt;__C.UIApplicationOpenURLOptionsKey, Any&gt;) -&gt; Swift.Bool"
-                  moduleName = "WheatherCaseStudy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/vb88396/Desktop/CaseStudy/CaseStudy/WheatherCaseStudy/Sources/AppDelegate.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "324">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

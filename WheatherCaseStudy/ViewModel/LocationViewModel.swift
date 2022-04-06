@@ -39,25 +39,22 @@ class LocationViewModel{
     var sessionPublisher:Box<String?> = Box<String?>(VKFSession.shared.retrieve(with: .weatherApiKey))
     
     
-    private(set) var weatherService:WeatherService
-    var locationService:LocationService
+    private(set) var weatherService:WeatherServiceProtocol
+    var locationService:LocationServiceProtocol
     
     var disposebag = DisposeBag()
     
     init(weatherService:WeatherService,locationService:LocationService){
         self.weatherService = weatherService
+        
         self.locationService = locationService
         self.observerLocationService()
      
-        listerSession()
+        
        
     }
     
-    func listerSession(){
-        sessionPublisher.bind { session in
-            print("session geldi \(String(describing: session))")
-         }.disposed(by: disposebag)
-    }
+  
     func observerLocationService(){
         locationService.publisher.bind(listener: {[weak self] locationResult in
             guard let self = self else {return}

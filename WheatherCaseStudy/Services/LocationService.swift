@@ -9,7 +9,14 @@ import Foundation
 import CoreLocation
 
 
-class LocationService{
+protocol LocationServiceProtocol:AnyObject{
+    
+    
+    var publisher:Box<LocationAndCity?> {get set}
+    func loadLocationAndCityObserv(mostRecentLocation: CLLocation)
+}
+
+class LocationService:LocationServiceProtocol{
     let disposeBag = DisposeBag()
     
     var publisher:Box<LocationAndCity?> = Box<LocationAndCity?>(nil)

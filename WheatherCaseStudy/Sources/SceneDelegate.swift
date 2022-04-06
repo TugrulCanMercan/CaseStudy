@@ -17,22 +17,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
         self.scene(scene, openURLContexts: connectionOptions.urlContexts)
     }
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         
         
-        for context in URLContexts {
-            print("url: \(context.url.absoluteURL)")
-            print("scheme: \(context.url.scheme)")
-            print("host: \(context.url.host)")
-            print("path: \(context.url.path)")
-            print("components: \(context.url.pathComponents)")
-          }
+//        for context in URLContexts {
+//            print("url: \(context.url.absoluteURL)")
+//            print("scheme: \(context.url.scheme)")
+//            print("host: \(context.url.host)")
+//            print("path: \(context.url.path)")
+//            print("components: \(context.url.pathComponents)")
+//          }
         
    
         if let url = URLContexts.first?.url{
-             print(url)
+//             print(url)
              let urlStr = url.absoluteString //1
              // Parse the custom URL as per your uses, this will change as per requirement
              let component = urlStr.components(separatedBy: "=") // 2
@@ -40,16 +41,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  if apiKey == "8ddadecc7ae4f56fee73b2b405a63659"{
                      
                      
-                     VKFSession.shared.store(with: .weatherApiKey, value: apiKey)
+//                     VKFSession.shared.store(with: .weatherApiKey, value: apiKey )
                      NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: apiKey)
                      
                  }
                  else{
                      print("yanlış key")
                  }
-                 
-                
-                 
              }
         }
     }
