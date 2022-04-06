@@ -9,11 +9,32 @@ import Foundation
 import CoreLocation
 
 
-class LocationManager:NSObject{
+protocol LocationManagerProtocol:AnyObject{
+    
+    var currentLiveLocationPublisher:Box<[CLLocation]> {get set}
+    
+    var currentLocationPublisher:Box<CLLocation?> {get set}
+    
+    func startUpdateLocationManagement()
+    
+    func stopUpdateLocationManagement()
+    
+    func authorizationUseRequestManagement()
+}
+
+
+
+
+
+
+
+class LocationManager:NSObject,LocationManagerProtocol{
     
     
     static var shared:LocationManager = LocationManager()
-    var locationManager : CLLocationManager!
+    var locationManager : BaseLocationManagerProtocol!
+    
+    
     
     var currentLiveLocationPublisher:Box<[CLLocation]> = Box<[CLLocation]>([])
     var currentLocationPublisher:Box<CLLocation?> = Box<CLLocation?>(nil)

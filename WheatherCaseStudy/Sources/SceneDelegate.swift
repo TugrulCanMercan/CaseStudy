@@ -41,7 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                  if apiKey == "8ddadecc7ae4f56fee73b2b405a63659"{
                      
                      
-//                     VKFSession.shared.store(with: .weatherApiKey, value: apiKey )
+                     VKFSession.shared.store(with: .weatherApiKey, value: apiKey )
                      NotificationCenter.default.post(name: Notification.Name("NotificationIdentifier"), object: apiKey)
                      
                  }

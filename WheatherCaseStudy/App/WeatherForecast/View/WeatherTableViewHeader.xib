@@ -17,20 +17,20 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z04-Dn-sFS">
                     <rect key="frame" x="0.0" y="44" width="414" height="213"/>
                     <subviews>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ef0-53-fhY">
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ef0-53-fhY">
                             <rect key="frame" x="87" y="22" width="240" height="169"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CityName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xih-NO-bkH">
-                                    <rect key="frame" x="0.0" y="0.0" width="240" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="240" height="58.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eis-Yd-aWN">
-                                    <rect key="frame" x="0.0" y="63" width="240" height="43"/>
+                                    <rect key="frame" x="0.0" y="78.5" width="240" height="50"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherDegree" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p38-vg-YT6">
-                                    <rect key="frame" x="0.0" y="126" width="240" height="43"/>
+                                    <rect key="frame" x="0.0" y="148.5" width="240" height="20.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -45,12 +45,12 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Ef0-53-fhY" firstAttribute="leading" secondItem="GP6-u7-utA" secondAttribute="leading" constant="87" id="2w2-Ng-taF"/>
-                <constraint firstItem="GP6-u7-utA" firstAttribute="bottom" secondItem="Ef0-53-fhY" secondAttribute="bottom" constant="22" id="FAv-l4-gfd"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="top" secondItem="GP6-u7-utA" secondAttribute="top" id="NFa-fw-AmL"/>
+                <constraint firstItem="Ef0-53-fhY" firstAttribute="centerY" secondItem="GP6-u7-utA" secondAttribute="centerY" id="Nxm-WA-pgz"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="bottom" secondItem="GP6-u7-utA" secondAttribute="bottom" id="WOt-VD-6zs"/>
                 <constraint firstItem="GP6-u7-utA" firstAttribute="trailing" secondItem="z04-Dn-sFS" secondAttribute="trailing" id="WTa-lX-6aM"/>
                 <constraint firstItem="GP6-u7-utA" firstAttribute="trailing" secondItem="Ef0-53-fhY" secondAttribute="trailing" constant="87" id="aH7-M0-X11"/>
-                <constraint firstItem="Ef0-53-fhY" firstAttribute="top" secondItem="GP6-u7-utA" secondAttribute="top" constant="22" id="cHf-CG-rux"/>
+                <constraint firstItem="Ef0-53-fhY" firstAttribute="top" secondItem="GP6-u7-utA" secondAttribute="top" constant="22" id="asG-iP-jw0"/>
                 <constraint firstItem="z04-Dn-sFS" firstAttribute="leading" secondItem="GP6-u7-utA" secondAttribute="leading" id="duf-cg-bcm"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -13,6 +13,8 @@ import Combine
 protocol WeatherServiceProtocol:AnyObject{
     var weeklyForeCast:WeeklyWeatherForecast? {get set}
     func getWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>)->Void)
+    
+    func newGetWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>)->Void)
 }
 
 
@@ -44,7 +46,7 @@ class WeatherService:WeatherServiceProtocol{
             }
             .store(in: &cancellable)
     }
-
+    
     
     func getWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>)->Void){
         
@@ -59,6 +61,37 @@ class WeatherService:WeatherServiceProtocol{
         }
     }
     
+    func newGetWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>) -> Void) {
+        
+        
+        let list = QueryItemsBlock {
+            URLQueryItem(name: "lat", value: "10")
+            URLQueryItem(name: "lon", value: "20")
+            URLQueryItem(name: "lang", value: "tr")
+            URLQueryItem(name: "exclude", value: "hourly,weekly")
+            URLQueryItem(name: "appid", value: "8ddadecc7ae4f56fee73b2b405a63659")
+        }
+
+        
+             let weatherEndpoint = Endpoint(path: "/data/2.5/onecall", httpMethod: .get, httpTask: .request,queryItems: list.items())
+        
+        NetworkManager.shared.newGetRequest(endpoint: weatherEndpoint) { (result:Result<WeeklyWeatherForecast,NetworkingError>) in
+            switch result {
+            case .success(let weatherForecast):
+                completion(.success(weatherForecast))
+            case .failure(let failure):
+                completion(.failure(failure))
+            }
+        }
+        //        NetworkManager.shared.getRequest(url: url) { (result:Result<WeeklyWeatherForecast,NetworkingError>) in
+        //            switch result {
+        //            case .success(let weatherForecast):
+        //                completion(.success(weatherForecast))
+        //            case .failure(let failure):
+        //                completion(.failure(failure))
+        //            }
+        //        }
+    }
     
     
     
@@ -74,7 +107,7 @@ class WeatherService:WeatherServiceProtocol{
 
 
 //    "https://api.openweathermap.org/data/2.5/forecast?lat=-12.40&lon=37.785834&appid=8ddadecc7ae4f56fee73b2b405a63659"
-    
+
 //https://api.openweathermap.org/data/2.5/onecall?lat=-12.40&lon=37.785834&lang=tr&exclude=hourly,weekly&appid=8ddadecc7ae4f56fee73b2b405a63659 //7 günlük
 //    var Longitude:CLLocationDegrees?
 //    var Latitude:CLLocationDegrees?

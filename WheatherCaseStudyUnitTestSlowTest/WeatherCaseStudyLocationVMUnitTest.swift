@@ -110,28 +110,56 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         
     }
     
-    func test_LocationVM_ApiKey_LocationService(){
-        
-        
-        
-        
+    func test_LocationVM_ApiKey_LocationService() {
+
         guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
         let data = try? Data(contentsOf: url) else {
             print("bulunamadı")
             return XCTFail()
         }
 
-        
-        
-        
         guard let weather = try? JSONDecoder().decode(WeeklyWeatherForecast.self, from: data) else {
             return XCTFail()
         }
-        
         XCTAssertNotNil(weather)
+    }
+    
+    func test_LocationVM_LocationService_ShouldBeLocationEnable(){
+        
+     
         
         
+        let locationManager = MockLocationManager()
+        let authorizationStatus = locationManager.getAuthorizationStatus()
+        let isEnabled = locationManager.isLocationServicesEnabled()
+
+    
+        XCTAssertTrue(isEnabled)
+      
     }
 
+    
+    func test_LocationVM_LocationService_ShouldBeGetLongitude(){
+        
+     
+        let locationManager = MockLocationManager()
+        let vm = LocationViewModel(weatherService: WeatherService(), locationService: LocationService())
+        
+        
+     
+        let authorizationStatus = locationManager.getAuthorizationStatus()
+        let isEnabled = locationManager.isLocationServicesEnabled()
+
+        
+    
+        XCTAssertTrue(isEnabled)
+      
+    }
 
 }
+
+
+//        let weatherService = WeatherService()
+//        let locationService = LocationService()
+//
+//        let viewModel = LocationViewModel(weatherService: weatherService, locationService: locationService)

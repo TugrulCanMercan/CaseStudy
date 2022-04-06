@@ -23,7 +23,7 @@ class LocationViewModel{
     
     
     ///Publisher Property
-
+    
     var setLoadingPublisher:Box<Bool> = Box<Bool>(false)
     var weatherCellListPublisher:Box<[WeatherTableCellModel]> = Box<[WeatherTableCellModel]>([])
     var weatherCurrentViewHeaderPublisher:Box<WeatherTableHeaderModel?> = Box<WeatherTableHeaderModel?>(nil)
@@ -35,7 +35,7 @@ class LocationViewModel{
     var Latitude:CLLocationDegrees?
     var cityName:String = ""
     private var ApiKey:String = ""
-
+    
     var sessionPublisher:Box<String?> = Box<String?>(VKFSession.shared.retrieve(with: .weatherApiKey))
     
     
@@ -49,12 +49,12 @@ class LocationViewModel{
         
         self.locationService = locationService
         self.observerLocationService()
-     
         
-       
+        
+        
     }
     
-  
+    
     func observerLocationService(){
         locationService.publisher.bind(listener: {[weak self] locationResult in
             guard let self = self else {return}
@@ -66,17 +66,11 @@ class LocationViewModel{
         .disposed(by: disposebag)
     }
     
-    
-    
-    
-    
     @discardableResult
     func apiKeyAccessControll(ApiKey:String)->(Bool,Error?){
         
-        
         let ApikeyCount = "8ddadecc7ae4f56fee73b2b405a63659".count
         
-    
         if ApiKey.count == ApikeyCount {
             self.ApiKey = ApiKey
             return (true,nil)
@@ -97,8 +91,8 @@ class LocationViewModel{
         }
         
         self.setLoadingPublisher.value = true
-
-        weatherService.getWeeklyForecast(latitude: latitude, longitude: longitude, ApiKey: ApiKey) {[weak self] weather in
+        
+        weatherService.newGetWeeklyForecast(latitude: latitude, longitude: longitude, ApiKey: ApiKey) {[weak self] weather in
             
             guard let self = self else {return}
             switch weather{
@@ -110,13 +104,13 @@ class LocationViewModel{
                 self.dailyCellList(wether: weatherData)
                 self.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
                 
-
+                
                 self.setLoadingPublisher.value = false
                 
             case .failure(let error):
                 print(error)
                 
-
+                
                 self.setLoadingPublisher.value = false
             }
         }
@@ -135,11 +129,11 @@ class LocationViewModel{
         if let iconName = currentWeather.weather.first?.icon {
             headerModel.WeatherIconName = iconName
         }
-
+        
         
         
         self.weatherCurrentViewHeaderPublisher.value = headerModel
-
+        
         
     }
     
@@ -149,10 +143,10 @@ class LocationViewModel{
         var cellModel = WeatherTableCellModel(MinDegreee: "", MaxDegreee: "", DayLabel: "", WeatherIconName: "nil")
         
         let WeatherCellModel =  zip(Date.oneWeek, wether.dailyWeather).map { (day,dailyWeather) -> WeatherTableCellModel in
-          
+            
             cellModel.MaxDegreee = dailyWeather.temperature.max.convertTemp(from: .kelvin, to: .celsius)
             cellModel.MinDegreee = dailyWeather.temperature.min.convertTemp(from: .kelvin, to: .celsius)
-          
+            
             cellModel.DayLabel = day.getFormattedDate()
             
             
@@ -162,9 +156,9 @@ class LocationViewModel{
             }
             return cellModel
         }
-
+        
         self.weatherCellListPublisher.value = WeatherCellModel
-
+        
     }
-
+    
 }

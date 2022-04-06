@@ -9,26 +9,59 @@ import Foundation
 import Combine
 
 
-enum NetworkingError:Error{
-    
-    case UrlError(reason:String)
-    case ParamsDecodeError(reason:String)
-    case error(String)
-    case urlResponseError(URLError)
-    case decodeError(Error)
-}
+
 enum httpRequestType{
     case bodyRequest
     case queryRequest
     case headerRequest
 }
 
+protocol EndpointType{
+    var baseURL:URL {get set}
+    var path:String {get set}
+    var httpMethod:HTTPMethod {get set}
+    var task:URL {get set}
+    var headers:URL {get set}
+    
+}
 
-class NetworkManager{
+enum HTTPMethod: String{
+    case get = "GET"
+    case post = "POST"
+    case put = "PUT"
+    case patch = "PATCH"
+    case delete = "DELETE"
+}
+
+typealias Parameters = [String:Any]
+typealias HTTPHeaders = [String:String]
+
+enum HTTPTask{
+    case request
+    case requestParameters(bodyParameters:Parameters)
+    case requestParametersAndHeaders
+}
+
+
+protocol NetworkManagerProtocol:AnyObject{
+    static var shared:NetworkManager {get set}
+    
+    func getRequestCombine(endPointUrl:String)->AnyPublisher<Data,Error>
+    
+    func post<T:Codable>(endpointUrl:String,params:T) ->AnyPublisher<Data,Error>
+    
+    func post<T:Codable,U:Codable>(url:String,params:T,completion:@escaping ((Result<U,NetworkingError>)->()))
+    
+    func newGetRequest<T:Codable>(endpoint:Endpoint,completion:@escaping (Result<T,NetworkingError>)->Void)
+}
+
+final class NetworkManager:NetworkManagerProtocol{
     
     static var shared:NetworkManager = NetworkManager()
     
-    private init(){}
+    private init(){
+  
+    }
   
     
     enum NetworkingErrorCombine : LocalizedError{
@@ -156,7 +189,7 @@ class NetworkManager{
         .resume()
     }
     
-//    func getRequest<T:Codable>(url:String,resultDto:T.Type,completion:@escaping (Result<T,networkingError>)->Void)
+
     
     func getRequest<T:Codable>(url:String,completion:@escaping (Result<T,NetworkingError>)->Void){
         guard let url = URL(string: url) else {
@@ -166,6 +199,48 @@ class NetworkManager{
         var request = URLRequest(url: url)
         
         request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                return completion(.failure(.error(error?.localizedDescription ?? "hata ")))
+            }
+            
+            guard let response = response as? HTTPURLResponse , response.statusCode >= 200 && response.statusCode < 300 else {
+                return completion(.failure(.urlResponseError(URLError.init(.badServerResponse))))
+                
+            }
+            guard let data = data else {
+                return
+            }
+            do {
+                let responseData = try JSONDecoder().decode(T.self, from: data)
+                // BURASI DÜZELTİLECEK ??
+                DispatchQueue.main.async {
+                    completion(.success(responseData))
+                }
+            } catch let error {
+                completion(.failure(.decodeError(error)))
+            }
+        }
+        .resume()
+        
+
+    
+}
+    
+    
+    func newGetRequest<T:Codable>(endpoint:Endpoint,completion:@escaping (Result<T,NetworkingError>)->Void){
+        
+        
+        let url = endpoint.createUrl()
+        
+        
+        guard let url = url else {
+            return completion(.failure(.UrlError(reason: "URL Hatası")))
+            
+        }
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = endpoint.httpMethod.rawValue
         URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 return completion(.failure(.error(error?.localizedDescription ?? "hata ")))
