@@ -7,13 +7,16 @@
 
 import XCTest
 @testable import WheatherCaseStudy
+import CoreLocation
 
 class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
     
-    var VM : LocationViewModel?
+    var VM : LocationViewModel!
 
     override func setUpWithError() throws {
-        self.VM = LocationViewModel(weatherService: WeatherService(),locationService: LocationService())
+        
+        
+        self.VM = LocationViewModel(weatherService: WeatherService(networkManager: NetworkManager.shared),locationService: LocationService(locationManager: LocationManager.shared))
     }
 
     override func tearDownWithError() throws {
@@ -31,8 +34,8 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         XCTAssertNotNil(VM)
     }
     func test_LocationVM_WeatherServiceInjection_ShouldBeInit(){
-        let weatherService = WeatherService()
-        let locService = LocationService()
+        let weatherService = WeatherService(networkManager: NetworkManager.shared)
+        let locService = LocationService(locationManager: LocationManager.shared)
         
         let vm = LocationViewModel(weatherService: weatherService,locationService: locService)
         
@@ -45,6 +48,7 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         
         
         let GivenKey = "8ddadecc7ae4f56fee73b2b405a63659"
+        
         
         guard let VM = VM else {
             XCTFail()
@@ -89,28 +93,57 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
     }
     
     
-    func test_LocationVM_ApiKey_ShouldBeMockResponse__(){
+    func test_LocationVM_ApiKey_ShouldBeMockResponse(){
         
         
-        guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
-        let data = try? Data(contentsOf: url) else {
-            print("bulunamadı")
-            return XCTFail()
-        }
+        let latitude:CLLocationDegrees = 10
+        let longitude:CLLocationDegrees = 10
+        let key = "123"
 
-        
-        
-        
-        guard let weather = try? JSONDecoder().decode(WeeklyWeatherForecast.self, from: data) else {
-            return XCTFail()
+        VM.weatherService.getWeeklyForecastTest(latitude: latitude, longitude: longitude, ApiKey: key) { result in
+            switch result{
+                
+            case .success(let data):
+                
+                XCTAssertNotNil(data)
+                
+            case .failure(let err):
+                XCTAssertNil(err)
+            }
         }
         
-        XCTAssertNotNil(weather)
         
+   
         
     }
     
-    func test_LocationVM_ApiKey_LocationService() {
+    func test_LocationVM_ApiKeyInvalid_ShouldBeKeyError(){
+        
+        
+        let latitude:CLLocationDegrees = 10
+        let longitude:CLLocationDegrees = 10
+        let key = "123"
+
+        VM.weatherService.getWeeklyForecastTest(latitude: latitude, longitude: longitude, ApiKey: key) { result in
+            switch result{
+                
+            case .success(let data):
+                
+                XCTAssertNotNil(data)
+                
+            case .failure(let err):
+                XCTAssertNil(err)
+            }
+        }
+        
+        
+   
+        
+    }
+    
+    func test_LocationVM_DailyCellList_ShouldBeLoadList() {
+        
+        
 
         guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
         let data = try? Data(contentsOf: url) else {
@@ -122,6 +155,13 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
             return XCTFail()
         }
         XCTAssertNotNil(weather)
+        
+        VM?.dailyCellList(wether: weather)
+        
+        XCTAssertNotNil(VM?.weatherCellListPublisher.value)
+        
+        
+        
     }
     
     func test_LocationVM_LocationService_ShouldBeLocationEnable(){
@@ -129,8 +169,11 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
      
         
         
-        let locationManager = MockLocationManager()
-        let authorizationStatus = locationManager.getAuthorizationStatus()
+        let locationManager = MockLocationManager.shared
+        
+        
+        
+        _ = locationManager.getAuthorizationStatus()
         let isEnabled = locationManager.isLocationServicesEnabled()
 
     
@@ -142,12 +185,12 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
     func test_LocationVM_LocationService_ShouldBeGetLongitude(){
         
      
-        let locationManager = MockLocationManager()
-        let vm = LocationViewModel(weatherService: WeatherService(), locationService: LocationService())
+        let locationManager = MockLocationManager.shared
+        _ = LocationViewModel(weatherService: WeatherService(networkManager: NetworkManager.shared), locationService: LocationService(locationManager: LocationManager.shared))
         
         
      
-        let authorizationStatus = locationManager.getAuthorizationStatus()
+        _ = locationManager.getAuthorizationStatus()
         let isEnabled = locationManager.isLocationServicesEnabled()
 
         
@@ -155,11 +198,49 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         XCTAssertTrue(isEnabled)
       
     }
+    
+    func test_LocationVM_MockLocationManager_ShouldBeLocation(){
+        let mockLocManager:LocationManagerProtocol = MockLocationManager.shared
+        
+        var long:CLLocationDegrees?
+        var lat:CLLocationDegrees?
+        
+        var cancellable:Disposable? = mockLocManager.currentLocationPublisher.bind {loc in
+            
+            
+            long = loc?.coordinate.longitude
+            lat = loc?.coordinate.latitude
+            
+        }
+        cancellable = nil
+        cancellable?.dispose()
+        
+
+        XCTAssertNotNil(long)
+        XCTAssert(long == -10)
+        XCTAssert(lat == 10)
+
+    }
+    
+    func test_LocationVM_TableHeaderCurrentForecast_ShouldBeLoadHeader(){
+        
+        guard let url = Bundle.main.url(forResource: "MockWeather", withExtension: "json"),
+        let data = try? Data(contentsOf: url) else {
+            print("bulunamadı")
+            return XCTFail()
+        }
+
+        guard let weather = try? JSONDecoder().decode(WeeklyWeatherForecast.self, from: data) else {
+            return XCTFail()
+        }
+        XCTAssertNotNil(weather)
+        
+        VM?.tableHeaderCurrentForecast(currentWeather: weather.currentWeather)
+        
+        XCTAssertNotNil(VM?.weatherCurrentViewHeaderPublisher.value)
+    }
 
 }
 
 
-//        let weatherService = WeatherService()
-//        let locationService = LocationService()
-//
-//        let viewModel = LocationViewModel(weatherService: weatherService, locationService: locationService)
+

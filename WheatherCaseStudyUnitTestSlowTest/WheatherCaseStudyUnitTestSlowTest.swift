@@ -23,8 +23,8 @@ class WheatherCaseStudyUnitTestSlowTest: XCTestCase {
     func test_LocationVM_Service_WeatherListCellLoad_ShouldBeLoadList() throws {
         
         //given
-        let weatherService = WeatherService()
-        let locService = LocationService()
+        let weatherService = WeatherService(networkManager: NetworkManager.shared)
+        let locService = LocationService(locationManager: LocationManager.shared)
         let vm = LocationViewModel(weatherService: weatherService, locationService: locService)
         let mockLatitude:CLLocationDegrees = 20
         let mockLongitude:CLLocationDegrees = 20

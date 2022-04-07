@@ -21,14 +21,16 @@ class LocationService:LocationServiceProtocol{
     
     var publisher:Box<LocationAndCity?> = Box<LocationAndCity?>(nil)
     
-    
-    init(){
+    let locationManager:LocationManagerProtocol
+    init(locationManager:LocationManagerProtocol){
+        self.locationManager = locationManager
         getCurrentLocationAndCity()
+       
     }
     
     func getCurrentLocationAndCity(){
         
-        LocationManager.shared.currentLocationPublisher.bind { [weak self] locationCoordinateList in
+        locationManager.currentLocationPublisher.bind { [weak self] locationCoordinateList in
             
             guard let self = self else {return}
             guard let mostRecentLocation = locationCoordinateList else {

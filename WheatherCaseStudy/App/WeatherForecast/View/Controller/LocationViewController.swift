@@ -15,7 +15,7 @@ class LocationViewController: UIViewController,Storyboarded{
     
     
     
-    var loactionVM = LocationViewModel(weatherService: WeatherService(),locationService: LocationService())
+    var loactionVM = LocationViewModel(weatherService: WeatherService(networkManager: NetworkManager.shared),locationService: LocationService(locationManager: LocationManager.shared))
     var cancellable = DisposeBag()
     deinit{
         print("kapandı")

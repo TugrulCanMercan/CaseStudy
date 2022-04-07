@@ -9,11 +9,13 @@ import Foundation
 import CoreLocation
 
 
-protocol LocationManagerProtocol:AnyObject{
+protocol LocationManagerProtocol:AnyObject,BaseLocationManagerProtocol{
     
     var currentLiveLocationPublisher:Box<[CLLocation]> {get set}
     
     var currentLocationPublisher:Box<CLLocation?> {get set}
+    
+    
     
     func startUpdateLocationManagement()
     
@@ -23,47 +25,40 @@ protocol LocationManagerProtocol:AnyObject{
 }
 
 
-
-
-
-
-
-class LocationManager:NSObject,LocationManagerProtocol{
+class LocationManager:CLLocationManager,LocationManagerProtocol{
     
     
-    static var shared:LocationManager = LocationManager()
-    var locationManager : BaseLocationManagerProtocol!
+    static var shared:LocationManagerProtocol = LocationManager()
     
-    
-    
+   
     var currentLiveLocationPublisher:Box<[CLLocation]> = Box<[CLLocation]>([])
     var currentLocationPublisher:Box<CLLocation?> = Box<CLLocation?>(nil)
 
     
     private override init(){
         super.init()
-        self.locationManager = CLLocationManager()
-        authorizationUseRequestManagement()
-        startUpdateLocationManagement()
-        locationManager.delegate = self
+        
+        requestWhenInUseAuthorization()
+        startUpdatingLocation()
+        delegate = self
     }
     
     func startUpdateLocationManagement(){
-        locationManager.startUpdatingLocation()
+        startUpdatingLocation()
         
     }
     
     func stopUpdateLocationManagement(){
-        locationManager.stopUpdatingLocation()
+        stopUpdatingLocation()
     }
     
     func authorizationUseRequestManagement(){
-        locationManager.requestWhenInUseAuthorization()
+        requestWhenInUseAuthorization()
     }
     
- 
+    
+    
 }
-
 extension LocationManager:CLLocationManagerDelegate{
     
     
@@ -79,7 +74,7 @@ extension LocationManager:CLLocationManagerDelegate{
         switch manager.authorizationStatus {
         case .authorizedAlways , .authorizedWhenInUse:
             
-            guard let currentLoc:CLLocation = locationManager.location else {
+            guard let currentLoc:CLLocation = location else {
                 return
             }
             
@@ -101,3 +96,84 @@ extension LocationManager:CLLocationManagerDelegate{
         }
     }
 }
+
+
+
+
+
+//class LocationManager:NSObject,LocationManagerProtocol{
+//
+//
+//    static var shared:LocationManager = LocationManager()
+//    var locationManager : BaseLocationManagerProtocol = CLLocationManager()
+//
+//
+//
+//    var currentLiveLocationPublisher:Box<[CLLocation]> = Box<[CLLocation]>([])
+//    var currentLocationPublisher:Box<CLLocation?> = Box<CLLocation?>(nil)
+//
+//
+//    private override init(){
+//        super.init()
+//
+//        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+//        locationManager.delegate = self
+//    }
+//
+//    func startUpdateLocationManagement(){
+//        locationManager.startUpdatingLocation()
+//
+//    }
+//
+//    func stopUpdateLocationManagement(){
+//        locationManager.stopUpdatingLocation()
+//    }
+//
+//    func authorizationUseRequestManagement(){
+//        locationManager.requestWhenInUseAuthorization()
+//    }
+//
+//
+//}
+//
+//extension LocationManager:CLLocationManagerDelegate{
+//
+//
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//
+//        currentLiveLocationPublisher.value = locations
+//    }
+//
+//
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//
+//
+//        switch manager.authorizationStatus {
+//        case .authorizedAlways , .authorizedWhenInUse:
+//
+//            guard let currentLoc:CLLocation = locationManager.location else {
+//                return
+//            }
+//
+//            currentLocationPublisher.value = currentLoc
+//
+//        case .notDetermined , .denied , .restricted:
+//            break
+//        default:
+//            break
+//        }
+//
+//        switch manager.accuracyAuthorization {
+//        case .fullAccuracy:
+//            break
+//        case .reducedAccuracy:
+//            break
+//        default:
+//            break
+//        }
+//    }
+//}
+
+
+

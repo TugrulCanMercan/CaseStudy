@@ -40,9 +40,16 @@ extension CLLocationManager:BaseLocationManagerProtocol{
     
 }
 
-class MockLocationManager: BaseLocationManagerProtocol {
- 
-
+class MockLocationManager:NSObject,LocationManagerProtocol{
+    func getAuthorizationStatus() -> CLAuthorizationStatus {
+        .authorizedWhenInUse
+    }
+    
+    func isLocationServicesEnabled() -> Bool {
+        true
+    }
+    
+    
     var location: CLLocation? = CLLocation(
         latitude: 37.3317,
         longitude: -122.0325086
@@ -57,13 +64,84 @@ class MockLocationManager: BaseLocationManagerProtocol {
     func startUpdatingLocation() { }
     func stopUpdatingLocation() { }
     
+    static var shared:LocationManagerProtocol = MockLocationManager()
     
-    func getAuthorizationStatus() -> CLAuthorizationStatus {
-        return .authorizedWhenInUse
+   
+    var currentLiveLocationPublisher:Box<[CLLocation]> = Box<[CLLocation]>([
+        CLLocation(
+           latitude: 10,
+           longitude: -10
+       ),
+        CLLocation(
+           latitude: 20,
+           longitude: -20
+       )
+    ])
+    var currentLocationPublisher:Box<CLLocation?> = Box<CLLocation?>( CLLocation(
+        latitude: 10,
+        longitude: -10
+    ))
+
+    
+    private override init(){
+        super.init()
+        
+        requestWhenInUseAuthorization()
+        startUpdatingLocation()
+        
     }
     
-    func isLocationServicesEnabled() -> Bool {
-        return true
+    func startUpdateLocationManagement(){
+        startUpdatingLocation()
+        
     }
+    
+    func stopUpdateLocationManagement(){
+        stopUpdatingLocation()
+    }
+    
+    func authorizationUseRequestManagement(){
+        requestWhenInUseAuthorization()
+    }
+    
+    
     
 }
+
+
+
+
+
+
+//class MockLocationManager: BaseLocationManagerProtocol {
+//
+//
+//    var location: CLLocation? = CLLocation(
+//        latitude: 37.3317,
+//        longitude: -122.0325086
+//    )
+//
+//    var delegate: CLLocationManagerDelegate?
+//    var distanceFilter: CLLocationDistance = 10
+//    var pausesLocationUpdatesAutomatically = false
+//    var allowsBackgroundLocationUpdates = true
+//
+//    func requestWhenInUseAuthorization() { }
+//    func startUpdatingLocation() { }
+//    func stopUpdatingLocation() { }
+//
+//
+//    func getAuthorizationStatus() -> CLAuthorizationStatus {
+//        return .authorizedWhenInUse
+//    }
+//
+//    func isLocationServicesEnabled() -> Bool {
+//        return true
+//    }
+//
+//}
+
+
+let aas = MockLocationManager.shared
+let bbs = LocationManager.shared
+

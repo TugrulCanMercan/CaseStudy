@@ -91,7 +91,7 @@ class LocationViewModel{
         }
         
         self.setLoadingPublisher.value = true
-        
+        //Mock Weather Service
         weatherService.newGetWeeklyForecast(latitude: latitude, longitude: longitude, ApiKey: ApiKey) {[weak self] weather in
             
             guard let self = self else {return}
@@ -122,7 +122,7 @@ class LocationViewModel{
     
     
     
-    private func tableHeaderCurrentForecast(currentWeather:CurrentWeather){
+    func tableHeaderCurrentForecast(currentWeather:CurrentWeather){
         var headerModel = WeatherTableHeaderModel(CityName: cityName, WeatherDegree: "", WeatherIconName: "")
         
         headerModel.WeatherDegree = currentWeather.temperature.convertTemp(from: .kelvin, to: .celsius)
@@ -138,7 +138,7 @@ class LocationViewModel{
     }
     
     
-    private func dailyCellList(wether:WeeklyWeatherForecast){
+    func dailyCellList(wether:WeeklyWeatherForecast){
         
         var cellModel = WeatherTableCellModel(MinDegreee: "", MaxDegreee: "", DayLabel: "", WeatherIconName: "nil")
         
