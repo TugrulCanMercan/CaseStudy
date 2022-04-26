@@ -96,21 +96,12 @@ class LocationViewModel{
             
             guard let self = self else {return}
             switch weather{
-                
             case .success(let weatherData):
-                
-                
-                
                 self.dailyCellList(wether: weatherData)
                 self.tableHeaderCurrentForecast(currentWeather: weatherData.currentWeather)
-                
-                
                 self.setLoadingPublisher.value = false
-                
             case .failure(let error):
                 print(error)
-                
-                
                 self.setLoadingPublisher.value = false
             }
         }

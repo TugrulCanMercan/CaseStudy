@@ -56,9 +56,9 @@ class WeatherService:WeatherServiceProtocol{
     
     var cancellable = Set<AnyCancellable>()
     
-    let networkManager:NetworkManager
+    let networkManager:NetworkManagerProtocol
     
-    init(networkManager:NetworkManager){
+    init(networkManager:NetworkManagerProtocol){
         self.networkManager = networkManager
     }
     
@@ -88,7 +88,10 @@ class WeatherService:WeatherServiceProtocol{
     func getWeeklyForecast(latitude:CLLocationDegrees,longitude:CLLocationDegrees,ApiKey:String,completion: @escaping (Result<WeeklyWeatherForecast,NetworkingError>)->Void){
         
         let url = "https://api.openweathermap.org/data/2.5/onecall?lat=\(latitude)&lon=\(longitude)&lang=tr&exclude=hourly,weekly&appid=\(ApiKey)"
-        NetworkManager.shared.getRequest(url: url) { (result:Result<WeeklyWeatherForecast,NetworkingError>) in
+        
+        
+        
+        networkManager.getRequest(url: url) { (result:Result<WeeklyWeatherForecast,NetworkingError>) in
             switch result {
             case .success(let weatherForecast):
                 completion(.success(weatherForecast))

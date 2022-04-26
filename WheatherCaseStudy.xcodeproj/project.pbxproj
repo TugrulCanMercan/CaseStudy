@@ -40,6 +40,8 @@
 		E46EE21427FAD79C00C4FDBE /* Boxing.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21327FAD79C00C4FDBE /* Boxing.swift */; };
 		E46EE21627FADCB700C4FDBE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21527FADCB700C4FDBE /* LocationManager.swift */; };
 		E46EE21A27FAE96100C4FDBE /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46EE21927FAE96100C4FDBE /* LocationService.swift */; };
+		E4C50C0827FF1E5B0097AE77 /* MockWeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C50C0727FF1E5B0097AE77 /* MockWeatherService.swift */; };
+		E4C50C0B27FF1F740097AE77 /* NetworkMockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C50C0A27FF1F740097AE77 /* NetworkMockManager.swift */; };
 		E4D59D9227FC75D400C4F0FD /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D59D9127FC75D400C4F0FD /* SessionStore.swift */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +93,8 @@
 		E46EE21327FAD79C00C4FDBE /* Boxing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boxing.swift; sourceTree = "<group>"; };
 		E46EE21527FADCB700C4FDBE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E46EE21927FAE96100C4FDBE /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		E4C50C0727FF1E5B0097AE77 /* MockWeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherService.swift; sourceTree = "<group>"; };
+		E4C50C0A27FF1F740097AE77 /* NetworkMockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMockManager.swift; sourceTree = "<group>"; };
 		E4D59D9127FC75D400C4F0FD /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
 		FBA9496B63CAFE77FD88A073 /* Pods-WheatherCaseStudy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WheatherCaseStudy.debug.xcconfig"; path = "Target Support Files/Pods-WheatherCaseStudy/Pods-WheatherCaseStudy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +213,7 @@
 		DB47689E27EC513300584DEA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				E4C50C0627FF1E430097AE77 /* MockServices */,
 				DB47689F27EC514A00584DEA /* WeatherService.swift */,
 				E46EE21927FAE96100C4FDBE /* LocationService.swift */,
 			);
@@ -259,6 +264,7 @@
 		E46D4AFE27FDB04C00C2476D /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E4C50C0927FF1F380097AE77 /* NetworkMockManager */,
 				E46D4B0727FDC33800C2476D /* NetworkManager */,
 				E46D4B0427FDBDC000C2476D /* NetworkQueryBuilder */,
 				E46D4B0127FDB0AC00C2476D /* NetworkErrorLayer */,
@@ -324,6 +330,22 @@
 				E46D4B0F27FDD53C00C2476D /* MockLocationManager.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		E4C50C0627FF1E430097AE77 /* MockServices */ = {
+			isa = PBXGroup;
+			children = (
+				E4C50C0727FF1E5B0097AE77 /* MockWeatherService.swift */,
+			);
+			path = MockServices;
+			sourceTree = "<group>";
+		};
+		E4C50C0927FF1F380097AE77 /* NetworkMockManager */ = {
+			isa = PBXGroup;
+			children = (
+				E4C50C0A27FF1F740097AE77 /* NetworkMockManager.swift */,
+			);
+			path = NetworkMockManager;
 			sourceTree = "<group>";
 		};
 		E958D3A9FBE8D6C3E07553A9 /* Pods */ = {
@@ -486,6 +508,7 @@
 				DB4768A527EC55B600584DEA /* LocationViewController.swift in Sources */,
 				DB4768B027ECB88700584DEA /* WeatherViewCell.swift in Sources */,
 				DB4768AB27ECA33F00584DEA /* WeatherViewController.swift in Sources */,
+				E4C50C0827FF1E5B0097AE77 /* MockWeatherService.swift in Sources */,
 				DBDE479E27F092230082EF68 /* WeatherTableCellModel.swift in Sources */,
 				E46D4B0627FDBE7B00C2476D /* QueryItemBuilder.swift in Sources */,
 				E46EE21427FAD79C00C4FDBE /* Boxing.swift in Sources */,
@@ -496,6 +519,7 @@
 				DB98E6B627F0DE86006A9BD3 /* Date+Extension.swift in Sources */,
 				DB4768A027EC514A00584DEA /* WeatherService.swift in Sources */,
 				E46EE21627FADCB700C4FDBE /* LocationManager.swift in Sources */,
+				E4C50C0B27FF1F740097AE77 /* NetworkMockManager.swift in Sources */,
 				E46D4B0327FDB0CC00C2476D /* NetworkErrorLayer.swift in Sources */,
 				DB47689D27EC4B4F00584DEA /* NetworkManager.swift in Sources */,
 				E410533627F44F28007D0375 /* Extension-Mirror.swift in Sources */,

@@ -239,6 +239,34 @@ class WeatherCaseStudyLocationVMUnitTest: XCTestCase {
         
         XCTAssertNotNil(VM?.weatherCurrentViewHeaderPublisher.value)
     }
+    
+    
+    
+    
+    
+    
+    
+    /// NEW VİEWMODEL
+    ///View Model testleri
+    ///
+    
+    
+    func test_LocationVM_LocationWeatherInfo(){
+        
+        
+        VM.observerLocationService()
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
 

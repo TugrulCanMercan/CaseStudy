@@ -44,7 +44,7 @@ enum HTTPTask{
 
 
 protocol NetworkManagerProtocol:AnyObject{
-    static var shared:NetworkManager {get set}
+    static var shared:NetworkManagerProtocol {get set}
     
     func getRequestCombine(endPointUrl:String)->AnyPublisher<Data,Error>
     
@@ -53,11 +53,13 @@ protocol NetworkManagerProtocol:AnyObject{
     func post<T:Codable,U:Codable>(url:String,params:T,completion:@escaping ((Result<U,NetworkingError>)->()))
     
     func newGetRequest<T:Codable>(endpoint:Endpoint,completion:@escaping (Result<T,NetworkingError>)->Void)
+    
+    func getRequest<T:Codable>(url:String,completion:@escaping (Result<T,NetworkingError>)->Void)
 }
 
 final class NetworkManager:NetworkManagerProtocol{
     
-    static var shared:NetworkManager = NetworkManager()
+    static var shared:NetworkManagerProtocol = NetworkManager()
     
     private init(){
   

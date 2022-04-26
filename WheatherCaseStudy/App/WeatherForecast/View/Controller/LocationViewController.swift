@@ -80,7 +80,7 @@ class LocationViewController: UIViewController,Storyboarded{
             
             navigationController?.pushViewController(vc, animated: true)
         }else{
-            print("Ekrana hata bas \(accessPage.1?.localizedDescription)")
+            print("Ekrana hata bas \(accessPage.1?.localizedDescription ?? "")")
         }
         
     }
